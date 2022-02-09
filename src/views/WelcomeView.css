@@ -1,8 +1,20 @@
 .welcome-view {
     margin: 2rem;
-    padding: 0%;
+    padding: 1%;
 }
 
-.welcome-view h2 {
-    color: brown;
+.user-input {
+    width: 65%;
+    padding: 2% 0%;
+}
+
+.submit-btn {
+    width: 50%;
+    margin: 10% 0%;
+    padding: 2.5% 0%;
+    border-radius: 15px;
+    border-width: 1.5px;
+    border-color: #282c34;
+    color: #282c34;
+    background-color: #5aa8f0;
 }
