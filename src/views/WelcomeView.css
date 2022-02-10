@@ -5,16 +5,23 @@
 
 .user-input {
     width: 65%;
-    padding: 2% 0%;
+    border-bottom-width: 1px;
+    padding: 5px 2px;
 }
 
 .submit-btn {
+    /* Position */
     width: 50%;
     margin: 10% 0%;
-    padding: 2.5% 0%;
-    border-radius: 15px;
-    border-width: 1.5px;
-    border-color: #282c34;
+    padding: 12px 32px;
+    /* Text */
+    font-size: 16px;
+    line-height: 21px;
+    font-weight: bold;
+    letter-spacing: 0.25px;
+    /* Border */
+    border-radius: 4px;
+    /* Colors */
     color: #282c34;
     background-color: #5aa8f0;
 }
