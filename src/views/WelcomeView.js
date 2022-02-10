@@ -1,13 +1,14 @@
 import React, { useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import * as authActions from '../store/actions/auth';
+import * as authActions from "../store/actions/auth";
 
 import "./WelcomeView.css";
 
 const WelcomeView = (props) => {
     const username = useRef();
-
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     // TODO: Remember props.onStartGame func
@@ -16,6 +17,15 @@ const WelcomeView = (props) => {
 
         try {
             await dispatch(authActions.authenticate(username.current.value));
+            const firstPlayer = localStorage.getItem("firstPlayer");
+            
+            navigate("/wordChoosing");
+
+            if (firstPlayer) {
+                if (firstPlayer === "yes") {
+                    console.log("TODO!");
+                }
+            }
             console.log(username.current.value);
         } catch (err) {
             // TODO: Error Handler
