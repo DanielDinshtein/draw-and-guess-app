@@ -23,12 +23,13 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 function App() {
-    const [headerTitle, setHeaderTitle] = useState("Draw & Guess");
+    // TODO: Maybe Game state ?
+    const [headerSubtitle, setHeaderTitle] = useState("Welcome");
 
     return (
         <div className="App">
             <Provider store={store}>
-                <Header headerTitle={headerTitle} />
+                <Header headerSubtitle={headerSubtitle} />
                 <Router>
                     <Routes>
                         <Route path="/" element={<WelcomeView onStartGame={setHeaderTitle} />} />

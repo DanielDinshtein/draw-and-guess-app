@@ -17,19 +17,22 @@ const WelcomeView = (props) => {
 
         try {
             await dispatch(authActions.authenticate(username.current.value));
-            const firstPlayer = localStorage.getItem("firstPlayer");
-            
-            navigate("/wordChoosing");
+            const firstPlayer = JSON.parse(sessionStorage.getItem("firstPlayer"));
 
             if (firstPlayer) {
                 if (firstPlayer === "yes") {
-                    console.log("TODO!");
+                    props.onStartGame("Word Choosing");
+                    navigate("/wordChoosing");
+                } else {
+                    props.onStartGame("Waiting");
+                    navigate("/waiting");
                 }
+            } else {
+                navigate("/");
             }
-            console.log(username.current.value);
         } catch (err) {
             // TODO: Error Handler
-            console.log("We");
+            console.log(err);
         }
     };
 

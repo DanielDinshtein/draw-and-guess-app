@@ -3,8 +3,12 @@ export const AUTHENTICATE = "AUTHENTICATE";
 // const serverUrl = "";
 
 export const authenticate = (username) => {
-    localStorage.setItem("firstPlayer", JSON.stringify(true));
-    return { type: AUTHENTICATE, username: username, firstPlayer: true };
+    let firstPlayer = "no";
+    if (username === "daniel") {
+        firstPlayer = "yes";
+    }
+    sessionStorage.setItem("firstPlayer", JSON.stringify(firstPlayer));
+    return { type: AUTHENTICATE, username: username, firstPlayer: firstPlayer };
 };
 
 // TODO: Good One - Server
@@ -27,7 +31,7 @@ export const authenticate = (username) => {
 //                 throw new Error(message);
 //             }
 
-//             localStorage.setItem("authenticated", JSON.stringify(true));
+//             sessionStorage.setItem("authenticated", JSON.stringify("yes"));
 //             dispatch({ type: AUTHENTICATE, username: username, firstPlayer });
 //         } catch (err) {
 //             // TODO: Check The Reason To The Error
