@@ -1,6 +1,6 @@
 import React from "react";
 
-import '../views/WordChoosingView.css';
+import "../views/WordChoosingView.css";
 
 const WordButton = (props) => {
     return (
