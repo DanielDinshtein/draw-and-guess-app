@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const Header = (props) => {
-    const username = useSelector((state) => state.auth.username);
+    const username = useSelector((state) => state.users.username);
 
     return (
         <div className="App-header">

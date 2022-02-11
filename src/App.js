@@ -4,7 +4,7 @@ import { Provider } from "react-redux";
 import thunk from "redux-thunk";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import authReducer from "./store/reducers/auth";
+import usersReducer from "./store/reducers/users";
 
 import WelcomeView from "./views/WelcomeView";
 import WordChoosingView from "./views/WordChoosingView";
@@ -17,7 +17,7 @@ import Header from "./components/Header";
 import "./App.css";
 
 const rootReducer = combineReducers({
-    auth: authReducer,
+    users: usersReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

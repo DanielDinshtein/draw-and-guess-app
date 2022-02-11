@@ -1,14 +1,14 @@
-export const AUTHENTICATE = "AUTHENTICATE";
+export const LOGIN = "LOGIN";
 
 // const serverUrl = "";
 
-export const authenticate = (username) => {
+export const login = (username) => {
     let firstPlayer = "no";
     if (username === "daniel") {
         firstPlayer = "yes";
     }
     sessionStorage.setItem("firstPlayer", JSON.stringify(firstPlayer));
-    return { type: AUTHENTICATE, username: username, firstPlayer: firstPlayer };
+    return { type: LOGIN, username: username, firstPlayer: firstPlayer };
 };
 
 // TODO: Good One - Server
