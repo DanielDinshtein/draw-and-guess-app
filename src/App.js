@@ -17,53 +17,53 @@ import Header from "./components/Header";
 import "./App.css";
 
 const rootReducer = combineReducers({
-    users: usersReducer,
-    game: gameReducer,
+	users: usersReducer,
+	game: gameReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 //  TODO: Thing on Better Place
 const appInit = () => {
-    //  Clear All Local Data
-    sessionStorage.clear();
+	//  Clear All Local Data
+	sessionStorage.clear();
 
-    //  TODO: Catch the Refresh & Notify Server
-    // if (window.performance) {
-    //     if (performance.navigation.type === 1) {
-    //         alert("This page is reloaded");
-    //     } else {
-    //         alert("This page is not reloaded");
-    //     }
-    // }
+	//  TODO: Catch the Refresh & Notify Server
+	// if (window.performance) {
+	//     if (performance.navigation.type === 1) {
+	//         alert("This page is reloaded");
+	//     } else {
+	//         alert("This page is not reloaded");
+	//     }
+	// }
 };
 appInit();
 
 function App() {
-    const location = useLocation();
-    const isUserAuthenticated = store.getState().users.username;
+	const location = useLocation();
+	const isUserAuthenticated = store.getState().users.username;
 
-    let headerSubtitle2 = location.state ? location.state : "Welcome";
+	let headerSubtitle2 = location.state ? location.state : "Welcome";
 
-    return (
-        <div className="App">
-            <Provider store={store}>
-                <Header headerSubtitle={headerSubtitle2} />
-                <Routes>
-                    <Route path="/" element={<WelcomeView />} />
-                    {isUserAuthenticated && (
-                        <>
-                            <Route path="/wordChoosing" element={<WordChoosingView />} />
-                            <Route path="/drawing" element={<DrawingView />} />
-                            <Route path="/guessing" element={<GuessingView />} />
-                            <Route path="/waiting" element={<WaitingView />} />
-                        </>
-                    )}
-                    <Route path="/*" element={<Navigate to={"/"} state={"Welcome"} />} />
-                </Routes>
-            </Provider>
-        </div>
-    );
+	return (
+		<div className="App">
+			<Provider store={store}>
+				<Header headerSubtitle={headerSubtitle2} />
+				<Routes>
+					<Route path="/" element={<WelcomeView />} />
+					{isUserAuthenticated && (
+						<>
+							<Route path="/wordChoosing" element={<WordChoosingView />} />
+							<Route path="/drawing" element={<DrawingView />} />
+							<Route path="/guessing" element={<GuessingView />} />
+							<Route path="/waiting" element={<WaitingView />} />
+						</>
+					)}
+					<Route path="/*" element={<Navigate to={"/"} state={"Welcome"} />} />
+				</Routes>
+			</Provider>
+		</div>
+	);
 }
 
 export default App;

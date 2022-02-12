@@ -1,5 +1,7 @@
 import { LOGIN } from "../actions/users";
 
+//  TODO: change 'firstPlayer' Into -> PLAYER_ROLE
+
 const initialState = {
 	username: null,
 	firstPlayer: null,
