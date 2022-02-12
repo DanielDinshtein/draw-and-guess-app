@@ -21,14 +21,12 @@ const WelcomeView = (props) => {
 
             if (firstPlayer) {
                 if (firstPlayer === "yes") {
-                    props.onStartGame("Word Choosing");
-                    navigate("/wordChoosing");
+                    navigate("/wordChoosing", {state:"Word Choosing"});
                 } else {
-                    props.onStartGame("Waiting");
-                    navigate("/waiting");
+                    navigate("/waiting", {state:"Waiting Room"});
                 }
             } else {
-                navigate("/");
+                navigate("/", {state:"Welcome"});
             }
         } catch (err) {
             // TODO: Error Handler
