@@ -12,22 +12,29 @@ import "./WordChoosingView.css";
 const words = getWords();
 
 const WordChoosingView = (props) => {
-	const isNewGame = useSelector((state) => state.game.points === 0);
-	const [word, setWord] = useState("");
 	const startDisabled = useRef(true);
+
+	const [word, setWord] = useState("");
+	const [wordPoints, setWordPoints] = useState(0);
+
+	const isNewGame = useSelector((state) => state.game.totalPoints === 0);
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const wordChoose = useCallback((event) => {
-		setWord(words[event.target.id]);
+	const onWordChoose = useCallback((chosenWord, wordPoints) => {
+		setWord(chosenWord);
+		setWordPoints(wordPoints);
 		startDisabled.current = false;
 	}, []);
 
 	const onStartDrawingHandler = async () => {
 		try {
 			if (isNewGame) {
-				await dispatch(gameActions.startGame(word, PLAYER_ROLE));
+				console.log(PLAYER_ROLE);
+				console.log(word);
+				console.log(wordPoints);
+				await dispatch(gameActions.startGame(PLAYER_ROLE, word, wordPoints));
 				navigate("/drawing", { state: "Drawing" });
 			} else {
 				//  TODO: Not New Game - Update Game
@@ -44,9 +51,9 @@ const WordChoosingView = (props) => {
 		<div className="word-choosing-view">
 			<h3>Choose Word :</h3>
 			<div className="choose-word">
-				<WordButton word={words.easy} wordChoose={wordChoose} difficulty={"easy"} points={1} />
-				<WordButton word={words.medium} wordChoose={wordChoose} difficulty={"medium"} points={3} />
-				<WordButton word={words.hard} wordChoose={wordChoose} difficulty={"hard"} points={5} />
+				<WordButton word={words.easy} wordChoose={onWordChoose} difficulty={"easy"} points={1} />
+				<WordButton word={words.medium} wordChoose={onWordChoose} difficulty={"medium"} points={3} />
+				<WordButton word={words.hard} wordChoose={onWordChoose} difficulty={"hard"} points={5} />
 			</div>
 			<div className="show-word">
 				<p id="word-chose">The word you chose</p>
