@@ -9,11 +9,11 @@ export const startGame = (playerRole, word, wordPoints) => {
 
 		console.log(response);
 
-		return {
+		dispatch({
 			type: START_GAME,
 			word: word,
 			wordPoints: wordPoints,
 			playerRole: playerRole,
-		};
+		});
 	};
 };

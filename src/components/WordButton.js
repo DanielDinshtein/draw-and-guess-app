@@ -3,11 +3,11 @@ import React from "react";
 import "../views/WordChoosingView.css";
 
 const WordButton = (props) => {
-	const { word, difficulty, points, wordChoose } = props;
+	const { word, difficulty, points, onWordSelect } = props;
 
 	return (
 		<div className="word-container">
-			<button className="btn" id={difficulty} onClick={() => wordChoose(word, points)}>
+			<button className="btn" id={difficulty} onClick={() => onWordSelect(word, points)}>
 				{word}
 			</button>
 			<div className="word-difficulty">

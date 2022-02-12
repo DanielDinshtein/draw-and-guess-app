@@ -9,7 +9,6 @@ const styles = {
 const Canvas = (props) => {
 	return (
 		<div className="canvas">
-			<h2>canvas</h2>
 			<ReactSketchCanvas style={styles} width="600" height="400" strokeWidth={4} strokeColor="red" />
 		</div>
 	);
