@@ -15,14 +15,12 @@ const DrawingView = (props) => {
 
 	return (
 		<div className="drawing-view">
-			<div className="draw-word">
-				<h2 id="draw"> You Need To Draw </h2>
+			<div id="word-to-draw-container">
+				<h2 id="h2-light-underline"> You Need To Draw </h2>
 				<h2>&nbsp;-&nbsp;{word}</h2>
 			</div>
 			<Canvas />
-            <SubmitButton className="submit-btn">
-                Send
-            </SubmitButton>
+			<SubmitButton id="send-draw-button">Send</SubmitButton>
 		</div>
 	);
 };

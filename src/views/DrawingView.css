@@ -1,55 +1,24 @@
 .drawing-view {
-    margin: 2rem;
-    padding: 0%;
+	margin: 2rem;
+	padding: 0%;
 }
 
 .drawing-view h2 {
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+	font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
 }
 
-.draw-word {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+#word-to-draw-container {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
-#draw {
-    text-decoration: underline;
-    font-weight: lighter;
+#h2-light-underline {
+	text-decoration: underline;
+	font-weight: lighter;
 }
 
-.btn {
-    width: 90%;
-    border: none;
-    color: white;
-    padding: 16px 0;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 15px;
-    font-family: Georgia, "Times New Roman", Times, serif;
-    margin: 4px 2px;
-    transition-duration: 0.4s;
-    cursor: pointer;
-}
-
-.submit-btn {
-    background-color: #5aa8f0;
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 10px 2px;
-    /* cursor: pointer; */
-    border-radius: 4px;
-}
-
-.submit-btn:disabled,
-submit-btn[disabled]{
-  background-color: #cccccc;
-  color: #666666;
+#send-draw-button {
+	font-weight: bold;
 }

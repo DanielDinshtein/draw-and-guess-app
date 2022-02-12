@@ -6,13 +6,13 @@ const WordButton = (props) => {
 	const { word, difficulty, points, onWordSelect } = props;
 
 	return (
-		<div className="word-container">
+		<div id="word-button-comp">
 			<button className="btn" id={difficulty} onClick={() => onWordSelect(word, points)}>
 				{word}
 			</button>
-			<div className="word-difficulty">
-				<p className="difficulty">{difficulty} - </p>
-				<p className="points">{points} pt</p>
+			<div id="word-info-container">
+				<p id="p-difficulty">{difficulty} - </p>
+				<p>{points} pt</p>
 			</div>
 		</div>
 	);
