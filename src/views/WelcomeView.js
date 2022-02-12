@@ -11,7 +11,6 @@ const WelcomeView = (props) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    // TODO: Remember props.onStartGame func
     const startGameHandler = async (event) => {
         event.preventDefault();
 

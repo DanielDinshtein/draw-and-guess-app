@@ -1,5 +1,8 @@
 {
     "cSpell.ignoreWords": [
         "browserslist"
-    ]
+    ],
+    "reactSnippets.settings.prettierEnabled": true,
+    "reactSnippets.settings.typescript": false,
+    "prettier.useTabs": true
 }
