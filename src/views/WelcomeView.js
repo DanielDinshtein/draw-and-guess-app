@@ -39,7 +39,7 @@ const WelcomeView = (props) => {
 			<form onSubmit={startGameHandler}>
 				<div className="user-name">
 					<h4>Please Enter Your User Name</h4>
-					<input type="text" className="user-input" placeholder="user name" ref={username} required />
+					<input type="text" id="input-username" placeholder="user name" ref={username} required />
 				</div>
 				<SubmitButton type="submit" id="start-game-btn">
 					Start Game

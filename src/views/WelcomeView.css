@@ -3,9 +3,9 @@
 	padding: 1%;
 }
 
-.user-input {
+#input-username {
 	width: 65%;
-	border-bottom-width: 1px;
+	border-width: 0.8px;
 	padding: 5px 2px;
 }
 
