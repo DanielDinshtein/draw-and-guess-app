@@ -52,9 +52,18 @@ const resetCanvasHandler = (canvasRef) => {
 
 export const buttonsHandlers = [
 	["Undo", undoHandler, "primary"],
-	["Redo", redoHandler, "primary"],
-	["Clear All", clearHandler, "primary"],
-	["Reset All", resetCanvasHandler, "primary"],
 	["Pen", penHandler, "secondary"],
+	["Clear All", clearHandler, "primary"],
+	["Redo", redoHandler, "primary"],
 	["Eraser", eraserHandler, "secondary"],
+	["Reset All", resetCanvasHandler, "primary"],
+];
+
+/*  Form Handlers List */
+
+export const formProps = [
+	["color", "strokeColor"],
+	["color", "canvasColor"],
+	["range", "strokeWidth"],
+	["range", "eraserWidth"],
 ];
