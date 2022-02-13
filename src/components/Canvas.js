@@ -1,5 +1,8 @@
-import React from "react";
+import React, { useRef } from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
+
+import CanvasButtons from "./CanvasButtons";
+import "../views/DrawingView.css";
 
 const styles = {
 	border: "0.0625rem solid #9c9c9c",
@@ -7,9 +10,14 @@ const styles = {
 };
 
 const Canvas = (props) => {
+	let canvas = useRef();
+
 	return (
-		<div>
-			<ReactSketchCanvas style={styles} width="600" height="400" strokeWidth={4} strokeColor="red" />
+		<div id="canvas-view">
+			<div id="react-sketch">
+				<ReactSketchCanvas ref={canvas} style={styles} strokeWidth={4} strokeColor="red" />
+			</div>
+			<CanvasButtons canvasRef={canvas} />
 		</div>
 	);
 };

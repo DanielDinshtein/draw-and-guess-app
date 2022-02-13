@@ -19,7 +19,9 @@ const DrawingView = (props) => {
 				<h2 id="h2-light-underline"> You Need To Draw </h2>
 				<h2>&nbsp;-&nbsp;{word}</h2>
 			</div>
-			<Canvas />
+			<div id="canvas-container">
+				<Canvas />
+			</div>
 			<SubmitButton id="send-draw-button">Send</SubmitButton>
 		</div>
 	);
