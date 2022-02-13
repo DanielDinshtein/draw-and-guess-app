@@ -1,27 +1,19 @@
 import React, { useRef, useState } from "react";
 import { ReactSketchCanvas } from "react-sketch-canvas";
 
-import CanvasButtons from "./CanvasButtons";
+import CanvasOptions from "./CanvasOptions";
 import "../views/DrawingView.css";
-
-// const CANVAS_PROPS_UPDATE = "CANVAS_PROPS_UPDATE";
-
-// const canvasReducer = (state, action) => {
-// 	if (action.type === CANVAS_PROPS_UPDATE) {
-// 		const updatedValues = {
-// 			...state.inputValues,
-// 			[action.input]: action.value,
-// 		};
-// 		return {
-
-// 		};
-// 	}
-// 	return state;
-// };
 
 const styles = {
 	border: "0.0625rem solid #9c9c9c",
 	borderRadius: "0.25rem",
+};
+
+const initialProps = {
+	strokeColor: "#000000",
+	canvasColor: "#FFFFFF",
+	strokeWidth: 4,
+	eraserWidth: 8,
 };
 
 const Canvas = (props) => {
@@ -45,13 +37,14 @@ const Canvas = (props) => {
 				<ReactSketchCanvas
 					ref={canvas}
 					style={styles}
-					strokeWidth={strokeWidthState}
-					eraserWidth={eraserWidthState}
 					strokeColor={strokeColorState}
 					canvasColor={canvasColorState}
+					strokeWidth={strokeWidthState}
+					eraserWidth={eraserWidthState}
+					{...props}
 				/>
 			</div>
-			<CanvasButtons canvasRef={canvas} propsState={canvasState} />
+			<CanvasOptions canvasRef={canvas} propsState={canvasState} initialPropsState={initialProps} />
 		</div>
 	);
 };

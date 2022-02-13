@@ -40,11 +40,15 @@ const clearHandler = (canvasRef) => {
 	}
 };
 
-const resetCanvasHandler = (canvasRef) => {
+const resetCanvasHandler = (canvasRef, propsState, initialPropsState) => {
 	const resetCanvas = canvasRef.current?.resetCanvas;
 
 	if (resetCanvas) {
 		resetCanvas();
+
+		for (const [prop, initialValue] of Object.entries(initialPropsState)) {
+			propsState[prop].setter(initialValue);
+		}
 	}
 };
 

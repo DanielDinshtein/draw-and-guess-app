@@ -2,22 +2,28 @@ import React from "react";
 
 import { buttonsHandlers, formProps } from "../utils/canvasUtils";
 
-const CanvasButtons = (props) => {
-	const { canvasRef, propsState } = props;
+const CanvasOptions = (props) => {
+	const { canvasRef, propsState, initialPropsState } = props;
 
 	return (
 		<div id="canvas-buttons-comp">
 			<div id="canvas-buttons-grid">
 				{buttonsHandlers.map(([label, handler, themeColor]) => (
-					<button key={label} className="canvas-btn-block" id={`btn-${themeColor}`} type="button" onClick={handler.bind(this, canvasRef)}>
+					<button
+						key={label}
+						className="btn-grid-cell"
+						id={`btn-${themeColor}`}
+						type="button"
+						onClick={handler.bind(this, canvasRef, propsState, initialPropsState)}
+					>
 						{label}
 					</button>
 				))}
 			</div>
 			<div id="canvas-form-grid">
 				{formProps.map(([propType, propName]) => (
-					<div key={`${propName}Div`}>
-						<label className="canvas-form-label" key={`${propName}Label`}>
+					<div key={`${propName}Div`} className="form-grid-cell">
+						<label key={`${propName}Label`} className="form-cell-label">
 							{propName} - {propType === "range" && propsState[propName].value}
 						</label>
 						<input
@@ -40,4 +46,4 @@ const CanvasButtons = (props) => {
 	);
 };
 
-export default CanvasButtons;
+export default CanvasOptions;

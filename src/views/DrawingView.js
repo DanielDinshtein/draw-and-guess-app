@@ -10,6 +10,7 @@ const DrawingView = (props) => {
 	let word = useSelector((state) => state.game.word);
 
 	if (!word) {
+		// DELETE: 
 		word = "wordToDraw";
 	}
 
