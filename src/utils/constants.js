@@ -2,6 +2,7 @@ export const END_POINTS = {
 	login: "/players/login",
 	initGame: "/games",
 	drawDetails: "/games/draw",
+	
 };
 
 export const ROLES = {
@@ -19,6 +20,3 @@ export const STAGES = {
 	WAIT_AFTER_DRAW: "wait after draw",
 };
 
-export const GAME_STAGE = {
-	stage: STAGES.WAIT_FOR_SECOND,
-};

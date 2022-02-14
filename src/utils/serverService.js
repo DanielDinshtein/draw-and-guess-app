@@ -24,7 +24,6 @@ export const userLogin = async (username) => {
 
 /* Game -  Server Functions  */
 
-//  TODO: Server Service Functions
 export const initGameSession = async (username, playerRole, word = "") => {
 	// NOTE:  Notify Server To Start Game
 
@@ -53,6 +52,28 @@ export const sendDrawDetails = async (username, word, wordPoints, canvasPath) =>
 		// TODO: Error Handler
 		console.log(err);
 		let message = "Error in serverService->sendDrawDetails";
+		console.log(message);
+		throw new Error(message);
+	}
+};
+
+/* 'Health Check' - Game Stage Management  Server Functions  */
+
+export const checkStageStatues = async (gameID, username) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.login;
+
+	try {
+		return await fetch(requestUrl, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				username: username,
+			}),
+		});
+	} catch (err) {
+		// TODO: Error Handler
+		console.log(err);
+		let message = "Error in serverService->userLogin";
 		console.log(message);
 		throw new Error(message);
 	}

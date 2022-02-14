@@ -6,6 +6,7 @@ import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import usersReducer from "./store/reducers/users";
 import gameReducer from "./store/reducers/game";
+import gameStageReducer from "./store/reducers/gameStage";
 
 import WelcomeView from "./views/WelcomeView";
 import WordChoosingView from "./views/WordChoosingView";
@@ -19,6 +20,7 @@ import "./App.css";
 const rootReducer = combineReducers({
 	users: usersReducer,
 	game: gameReducer,
+	gameStage: gameStageReducer,
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
