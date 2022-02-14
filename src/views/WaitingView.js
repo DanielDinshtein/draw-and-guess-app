@@ -1,19 +1,42 @@
 import React from "react";
-import { useSelector } from "react-redux";
 
+// , { useEffect }
+// import { useSelector, useDispatch } from "react-redux";
+
+// import { checkStageStatues } from "../utils/serverService";
 
 import "./WaitingView.css";
 
 const WaitingView = (props) => {
-    const gameStage = useSelector((state) => state.gameStage.currentGameStage);
+	// const dispatch = useDispatch();
 
-    console.log(gameStage);
+	// const [gameID, username, gameStage] = useSelector((state) => {
+	// 	const { gameID } = state.game;
+	// 	const { username } = state.users;
+	// 	const { currentGameStage } = state.gameStage;
 
-    return (
-        <div className="waiting-view">
-            <h2>Waiting View</h2>
-        </div>
-    );
+	// 	return [gameID, username, currentGameStage];
+	// });
+
+	// useEffect(() => {
+	//     const checkStage = async () => {
+	//         const result = await checkStageStatues(gameID, username);
+
+	//         console.log(result);
+
+	//     }
+	//     checkStage();
+	// }, [dispatch]);
+
+	// console.log(gameID);
+	// console.log(username);
+	// console.log(gameStage);
+
+	return (
+		<div className="waiting-view">
+			<h2>Waiting View</h2>
+		</div>
+	);
 };
 
 export default WaitingView;

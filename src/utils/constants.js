@@ -2,7 +2,7 @@ export const END_POINTS = {
 	login: "/players/login",
 	initGame: "/games",
 	drawDetails: "/games/draw",
-	
+	checkState: "/games/checkState",
 };
 
 export const ROLES = {
@@ -19,4 +19,3 @@ export const STAGES = {
 	WAIT_FOR_START_GUESSING: "wait for start guessing",
 	WAIT_AFTER_DRAW: "wait after draw",
 };
-
