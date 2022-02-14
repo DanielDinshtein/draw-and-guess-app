@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import SubmitButton from "../components/SubmitButton";
 import * as usersActions from "../store/actions/users";
 
+import { ROLES, STAGES } from "../utils/constants";
 import "./WelcomeView.css";
 
 const WelcomeView = (props) => {
@@ -16,18 +17,20 @@ const WelcomeView = (props) => {
 		event.preventDefault();
 
 		try {
-			await dispatch(usersActions.login(username.current.value));
-			const firstPlayer = JSON.parse(sessionStorage.getItem("firstPlayer"));
+			const loginResult = await dispatch(usersActions.login(username.current.value));
 
-			if (firstPlayer) {
-				if (firstPlayer === "yes") {
-					navigate("/wordChoosing", { state: "Word Choosing" });
-				} else {
-					navigate("/waiting", { state: "Waiting Room" });
-				}
-			} else {
-				navigate("/", { state: "Welcome" });
+			let state;
+			let to = "/waiting";
+
+			if (loginResult === ROLES.DRAW) {
+				state = { subtitle: "Waiting Room", gameStage: STAGES.WAIT_FOR_SECOND };
+			} else if (loginResult === ROLES.GUESS) {
+				state = { subtitle: "Waiting Room", gameStage: STAGES.WAIT_FOR_START_GUESSING };
+			} else if (!loginResult) {
+				to = "/";
+				state = { subtitle: "Welcome" };
 			}
+			navigate(to, { state: state });
 		} catch (err) {
 			// TODO: Error Handler
 			console.log(err);

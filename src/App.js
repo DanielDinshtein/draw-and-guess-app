@@ -43,12 +43,12 @@ function App() {
 	const location = useLocation();
 	const isUserAuthenticated = store.getState().users.username;
 
-	let headerSubtitle2 = location.state ? location.state : "Welcome";
+	let headerSubtitle = location.state?.subtitle ? location.state.subtitle : "Welcome";
 
 	return (
 		<div className="App">
 			<Provider store={store}>
-				<Header headerSubtitle={headerSubtitle2} />
+				<Header subtitle={headerSubtitle} />
 				<Routes>
 					<Route path="/" element={<WelcomeView />} />
 					{isUserAuthenticated && (

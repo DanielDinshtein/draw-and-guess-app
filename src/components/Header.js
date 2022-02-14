@@ -9,7 +9,7 @@ const Header = (props) => {
 			<div className="header-username">{username}</div>
 			<div className="header-titles">
 				<h1>Draw &amp; Guess</h1>
-				<h4>{props.headerSubtitle}</h4>
+				<h4>{props.subtitle}</h4>
 			</div>
 		</div>
 	);

@@ -1,7 +1,30 @@
 import { END_POINTS } from "./constants";
 
-//  TODO: Server Service Functions
+/* User -  Server Functions  */
 
+export const userLogin = async (username) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.login;
+
+	try {
+		return await fetch(requestUrl, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				username: username,
+			}),
+		});
+	} catch (err) {
+		// TODO: Error Handler
+		console.log(err);
+		let message = "Error in serverService->userLogin";
+		console.log(message);
+		throw new Error(message);
+	}
+};
+
+/* Game -  Server Functions  */
+
+//  TODO: Server Service Functions
 export const initGameSession = async (username, playerRole, word = "") => {
 	// NOTE:  Notify Server To Start Game
 
@@ -12,4 +35,25 @@ export const initGameSession = async (username, playerRole, word = "") => {
 	});
 };
 
-//  TODO: Login Function from actions/users
+export const sendDrawDetails = async (username, word, wordPoints, canvasPath) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.drawDetails;
+
+	try {
+		return await fetch(requestUrl, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				username: username,
+				word: word,
+				wordPoints: wordPoints,
+				canvasPath: canvasPath,
+			}),
+		});
+	} catch (err) {
+		// TODO: Error Handler
+		console.log(err);
+		let message = "Error in serverService->sendDrawDetails";
+		console.log(message);
+		throw new Error(message);
+	}
+};

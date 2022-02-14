@@ -1,9 +1,12 @@
 import React, { useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import Canvas from "../components/Canvas";
 import CanvasOptions from "../components/CanvasOptions";
 import SubmitButton from "../components/SubmitButton";
+
+import * as gameActions from "../store/actions/game";
 
 import "./DrawingView.css";
 
@@ -21,6 +24,8 @@ const initialProps = {
 
 const DrawingView = (props) => {
 	const canvas = useRef();
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [strokeColorState, setStrokeColorState] = useState("#000000");
 	const [canvasColorState, setCanvasColorState] = useState("#FFFFFF");
@@ -34,10 +39,19 @@ const DrawingView = (props) => {
 		eraserWidth: { value: eraserWidthState, setter: setEraserWidthState },
 	};
 
-	// , wordPoints, totalPoints
-	const { word } = useSelector((state) => state.game);
+	const { word, wordPoints } = useSelector((state) => state.game);
 
-	const sendDrawHandler = () => {};
+	const sendDrawHandler = async () => {
+		try {
+			const canvasPath = await canvas.current.exportPaths();
+
+			await dispatch(gameActions.SEND_DRAW(word, wordPoints, canvasPath));
+			navigate("/waiting", { state: { subtitle: "Waiting Room" } });
+		} catch (err) {
+			// TODO: Error Handler
+			console.log(err);
+		}
+	};
 
 	return (
 		<div className="drawing-view">

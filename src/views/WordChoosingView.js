@@ -31,6 +31,7 @@ const WordChoosingView = (props) => {
 			if (isNewGame) {
 				await dispatch(gameActions.startGame(PLAYER_ROLE, word, wordPoints));
 				navigate("/drawing", { state: "Drawing" });
+				// { subtitle: "Waiting Room" }
 			} else {
 				//  TODO: Not New Game - Update Game
 				console.log("TODO: Not New Game - Update Game");
