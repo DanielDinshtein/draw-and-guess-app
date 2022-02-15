@@ -3,41 +3,21 @@ import { END_POINTS } from "./constants";
 /* Check Health - Error Handler */
 
 const onWordChoosingError = async ({ service, timestamp }) => {
-	console.log("onChooseWordError");
+	console.log("onWordChoosingError");
 	try {
 	} catch (err) {
 		// TODO: Error Handler
-		console.log(" Error -> onChooseWordError");
+		console.log(" Error -> onWordChoosingError");
 		// console.log(err);
 	}
 };
 
 const onGuessingError = async ({ service, timestamp }) => {
-	console.log("onGuessError");
+	console.log("onGuessingError");
 	try {
 	} catch (err) {
 		// TODO: Error Handler
-		console.log(" Error -> onGuessError");
-		// console.log(err);
-	}
-};
-
-const onWaitingError = async ({ service, timestamp }) => {
-	console.log("onWaitingError");
-	try {
-	} catch (err) {
-		// TODO: Error Handler
-		console.log(" Error -> onWaitingError");
-		// console.log(err);
-	}
-};
-
-const onDrawingError = async ({ service, timestamp }) => {
-	console.log("onDrawingError");
-	try {
-	} catch (err) {
-		// TODO: Error Handler
-		console.log(" Error -> onDrawingError");
+		console.log(" Error -> onGuessingError");
 		// console.log(err);
 	}
 };
@@ -54,9 +34,7 @@ const onHealthError = async ({ service, timestamp }) => {
 
 const errorsHandlers = {
 	health: onHealthError,
-	waiting: onWaitingError,
 	wordChoosing: onWordChoosingError,
-	drawing: onDrawingError,
 	guessing: onGuessingError,
 };
 
@@ -73,21 +51,9 @@ const health = {
 	url: process.env.REACT_APP_SERVER_URL + END_POINTS.health,
 };
 
-/*  check health - stages */
-
-const waiting = {
-	name: "waiting",
-	url: process.env.REACT_APP_SERVER_URL + END_POINTS.waiting,
-};
-
 const wordChoosing = {
 	name: "wordChoosing",
 	url: process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing,
-};
-
-const drawing = {
-	name: "drawing",
-	url: process.env.REACT_APP_SERVER_URL + END_POINTS.drawing,
 };
 
 const guessing = {
@@ -97,17 +63,8 @@ const guessing = {
 
 export const services = {
 	health: health,
-	waiting: waiting,
 	wordChoosing: wordChoosing,
-	drawing: drawing,
 	guessing: guessing,
 };
 
 export const refreshInterval = 2000;
-
-export const getWithQueryParams = (username, stage) => {
-	let queryUrl = services[stage].url + `?username=${username}`;
-	return {
-		service: { name: stage, url: queryUrl },
-	};
-};

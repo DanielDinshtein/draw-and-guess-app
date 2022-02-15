@@ -24,9 +24,9 @@ const WelcomeView = (props) => {
 			let state = { subtitle: "Waiting Room" };
 
 			if (loginResult === ROLES.DRAW) {
-				dispatch(gameStageActions.updateGameStage(STAGES.WAIT_FOR_SECOND));
+				dispatch(gameStageActions.updateGameStage(STAGES.WAITING));
 			} else if (loginResult === ROLES.GUESS) {
-				dispatch(gameStageActions.updateGameStage(STAGES.WAIT_FOR_START_GUESSING));
+				dispatch(gameStageActions.updateGameStage(STAGES.WAITING));
 			} else if (!loginResult) {
 				to = "/";
 				state = { subtitle: "Welcome" };

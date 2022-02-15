@@ -11,9 +11,7 @@ export const END_POINTS = {
 	health: "/health",
 
 	/*  check health - stages */
-	waiting: "/health/waiting",
 	wordChoosing: "/health/wordChoosing",
-	drawing: "/health/drawing",
 	guessing: "/health/guessing",
 };
 

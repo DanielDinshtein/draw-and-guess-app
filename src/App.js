@@ -50,19 +50,19 @@ function App() {
 	return (
 		<div className="App">
 			<Provider store={store}>
-					<Header subtitle={headerSubtitle} />
-					<Routes>
-						<Route path="/" element={<WelcomeView />} />
-						{isUserAuthenticated && (
-							<>
-								<Route path="/wordChoosing" element={<WordChoosingView />} />
-								<Route path="/drawing" element={<DrawingView />} />
-								<Route path="/guessing" element={<GuessingView />} />
-								<Route path="/waiting" element={<WaitingView />} />
-							</>
-						)}
-						<Route path="/*" element={<Navigate to={"/"} state={"Welcome"} />} />
-					</Routes>
+				<Header subtitle={headerSubtitle} />
+				<Routes>
+					<Route path="/" element={<WelcomeView />} />
+					{isUserAuthenticated && (
+						<>
+							<Route path="/wordChoosing" element={<WordChoosingView />} />
+							<Route path="/drawing" element={<DrawingView />} />
+							<Route path="/guessing" element={<GuessingView />} />
+							<Route path="/waiting" element={<WaitingView />} />
+						</>
+					)}
+					<Route path="/*" element={<Navigate to={"/"} state={"Welcome"} />} />
+				</Routes>
 			</Provider>
 		</div>
 	);

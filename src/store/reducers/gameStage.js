@@ -5,7 +5,7 @@ import { STAGES } from "../../utils/constants";
 const initialState = {
 	word: "",
 	wordPoints: 0,
-	currentGameStage: STAGES.WAIT_FOR_SECOND,
+	currentGameStage: STAGES.WAITING,
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
