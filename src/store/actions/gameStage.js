@@ -1,10 +1,10 @@
 import { getNextStage } from "../../utils/serverService";
 
-export const UPDATE_GAME_STAGE = "UPDATE_GAME_STAGE";
+export const SET_CURRENT_STAGE = "SET_CURRENT_STAGE";
 export const SET_NEXT_STAGE = "SET_NEXT_STAGE";
 
-export const updateGameStage = (gameStage) => {
-	return { type: UPDATE_GAME_STAGE, gameStage: gameStage };
+export const setCurrentStage = (gameStage) => {
+	return { type: SET_CURRENT_STAGE, gameStage: gameStage };
 };
 
 export const setNextStage = () => {

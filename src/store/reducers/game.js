@@ -18,8 +18,6 @@ export default (state = initialState, action) => {
 		case START_GAME:
 			return {
 				...state,
-				word: action.word,
-				wordPoints: action.wordPoints,
 				playerRole: action.playerRole,
 			};
 		default:

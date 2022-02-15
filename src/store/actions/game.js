@@ -4,14 +4,17 @@ export const SEND_DRAW = "SEND_DRAW";
 export const START_GAME = "START_GAME";
 export const INIT_GAME = "INIT_GAME";
 
-// NOTE: New
-export const initGame = () => {
+// NOTE: Need This??
+export const initGame = (username) => {
 	return async (dispatch, getState) => {
 		try {
-			// const username = getState().users.username;
-			const response = await initGameSession();
+			const { gameID } = getState().game;
 
-			console.log(response);
+			const response = await initGameSession(gameID, username);
+
+			const data = await response.json();
+
+			console.log(data);
 
 			dispatch({
 				type: START_GAME,

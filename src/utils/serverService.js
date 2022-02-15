@@ -24,7 +24,7 @@ export const userLogin = async (username) => {
 
 /* Game -  Server Functions  */
 
-export const initGameSession = async (username, playerRole, word = "") => {
+export const initGameSession = async (gameID, username) => {
 	// NOTE:  Notify Server To Start Game
 
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.initGame;

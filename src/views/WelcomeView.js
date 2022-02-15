@@ -24,13 +24,15 @@ const WelcomeView = (props) => {
 			let state = { subtitle: "Waiting Room" };
 
 			if (loginResult === ROLES.DRAW) {
-				dispatch(gameStageActions.updateGameStage(STAGES.WAITING));
+				dispatch(gameStageActions.setCurrentStage(STAGES.WAITING));
 			} else if (loginResult === ROLES.GUESS) {
-				dispatch(gameStageActions.updateGameStage(STAGES.WAITING));
+				dispatch(gameStageActions.setCurrentStage(STAGES.WAITING));
 			} else if (!loginResult) {
 				to = "/";
 				state = { subtitle: "Welcome" };
 			}
+
+			// NOTE:  Need to init Game with Server?? // await dispatch(gameActions.initGame(username.current.value));
 			navigate(to, { state: state });
 		} catch (err) {
 			// TODO: Error Handler

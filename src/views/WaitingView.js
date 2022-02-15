@@ -30,7 +30,7 @@ const WaitingView = (props) => {
 				await dispatch(gameActions.initGame(service.name));
 
 				navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
-			} else if (service.name === STAGES.GUESS) {
+			} else if (service.name === STAGES.GUESSING) {
 				await dispatch(gameActions.initGame(service.name));
 				navigate("/waiting", { state: { subtitle: "Waiting Room" } });
 			}
