@@ -7,9 +7,14 @@ export const END_POINTS = {
 	drawDetails: "/games/draw",
 	nextStage: "/games/stage",
 
-	/* check health */
-	checkHealth: "/health",
-	checkStage: "/health/stage",
+	/* check health - server */
+	health: "/health",
+
+	/*  check health - stages */
+	waiting: "/health/waiting",
+	wordChoosing: "/health/wordChoosing",
+	drawing: "/health/drawing",
+	guessing: "/health/guessing",
 };
 
 export const ROLES = {
@@ -22,21 +27,12 @@ export const PLAYER_ROLE = {
 };
 
 export const STAGES = {
-	WAIT_FOR_SECOND: "wait for second player",
-	WAIT_FOR_START_GUESSING: "wait for start guessing",
-	WAIT_AFTER_DRAW: "wait after draw",
+	WAITING: "waiting",
+	WORD_CHOOSING: "wordChoosing",
+	DRAWING: "drawing",
+	GUESSING: "guessing",
 };
 
-/* Check Health - Services */
-
-export const checkAlive = {
-	name: "health",
-	url: process.env.REACT_APP_SERVER_URL + END_POINTS.checkHealth,
+export const GAME_STAGE = {
+	stage: STAGES.WAITING,
 };
-
-export const checkStageHealth = {
-	name: "stage",
-	url: process.env.REACT_APP_SERVER_URL + END_POINTS.checkStage,
-};
-
-export const refreshInterval = 2000;

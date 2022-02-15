@@ -14,7 +14,7 @@ import DrawingView from "./views/DrawingView";
 import GuessingView from "./views/GuessingView";
 import WaitingView from "./views/WaitingView";
 
-import CheckHealth from "./components/CheckHealth";
+// import CheckHealth from "./components/CheckHealth";
 import Header from "./components/Header";
 import "./App.css";
 
@@ -45,13 +45,11 @@ appInit();
 function App() {
 	const location = useLocation();
 	const isUserAuthenticated = store.getState().users.username;
-
 	let headerSubtitle = location.state?.subtitle ? location.state.subtitle : "Welcome";
 
 	return (
 		<div className="App">
 			<Provider store={store}>
-				<CheckHealth>
 					<Header subtitle={headerSubtitle} />
 					<Routes>
 						<Route path="/" element={<WelcomeView />} />
@@ -65,7 +63,6 @@ function App() {
 						)}
 						<Route path="/*" element={<Navigate to={"/"} state={"Welcome"} />} />
 					</Routes>
-				</CheckHealth>
 			</Provider>
 		</div>
 	);

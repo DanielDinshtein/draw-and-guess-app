@@ -1,16 +1,26 @@
 import React from "react";
+
 import { useHealthCheck } from "@webscopeio/react-health-check";
+
+import { services } from "../utils/checkHealthUtils";
 
 import "./WaitingView.css";
 
 const WaitingView = (props) => {
-	const { available, service } = useHealthCheck("stage");
+	try {
+		useHealthCheck({
+			service: services["waiting"],
+			onSuccess: ({ service, timestamp }) => {},
+			onError: ({ service, timestamp }) => {},
+			refreshInterval: 2000,
+		});
+	} catch (err) {
+		console.log("what");
+	}
 
-	console.log(service);
 	return (
 		<div className="waiting-view">
 			<h2>Waiting View</h2>
-			{/* {available && <div>xxx</div>} */}
 		</div>
 	);
 };
