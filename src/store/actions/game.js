@@ -1,7 +1,30 @@
 import { initGameSession, sendDrawDetails } from "../../utils/serverService";
 
-export const START_GAME = "START_GAME";
 export const SEND_DRAW = "SEND_DRAW";
+export const START_GAME = "START_GAME";
+export const INIT_GAME = "INIT_GAME";
+
+// NOTE: New
+export const initGame = () => {
+	return async (dispatch, getState) => {
+		try {
+			// const username = getState().users.username;
+			const response = await initGameSession();
+
+			console.log(response);
+
+			dispatch({
+				type: START_GAME,
+			});
+		} catch (err) {
+			//  TODO: Error Handler
+			console.log(err);
+			let message = "Error in game->startGame";
+			console.log(message);
+			throw new Error(message);
+		}
+	};
+};
 
 export const startGame = (playerRole, word, wordPoints) => {
 	return async (dispatch, getState) => {

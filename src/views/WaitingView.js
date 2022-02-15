@@ -4,8 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 import { useHealthCheck } from "@webscopeio/react-health-check";
 
+import * as gameActions from "../store/actions/game";
+
 import { ROLES, STAGES } from "../utils/constants";
-import { services, onSuccessHandler, onErrorHandler } from "../utils/checkHealthUtils";
+import { services } from "../utils/checkHealthUtils";
 
 import "./WaitingView.css";
 
@@ -22,25 +24,32 @@ const WaitingView = (props) => {
 		toStage = STAGES.GUESSING;
 	}
 
-	const onErrorHandler = useCallback(async ({ service, timestamp }) => {}, [dispatch]);
+	const onErrorHandler = useCallback(
+		async ({ service, timestamp }) => {
+			if (service.name === STAGES.WORD_CHOOSING) {
+				await dispatch(gameActions.initGame(service.name));
 
-	const { available } = useHealthCheck({
+				navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
+			} else if (service.name === STAGES.GUESS) {
+				await dispatch(gameActions.initGame(service.name));
+				navigate("/waiting", { state: { subtitle: "Waiting Room" } });
+			}
+		},
+		[dispatch, navigate]
+	);
+
+	useHealthCheck({
 		service: services[toStage],
 		onSuccess: ({ service, timestamp }) => {
 			console.log(`Service "${service.name}" is available since "${timestamp}" 🎉`);
 		},
-		onError: ({ service, timestamp }) => {
-			console.log(`Service "${service.name}" is not available since "${timestamp}" 😔`);
-		},
+		onError: onErrorHandler,
 		refreshInterval: 2000,
 	});
-
-	// refreshInterval: 2000,
 
 	return (
 		<div className="waiting-view">
 			<h2>Waiting View</h2>
-			{/* {available && "Why"} */}
 		</div>
 	);
 };
