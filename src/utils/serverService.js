@@ -59,8 +59,8 @@ export const sendDrawDetails = async (username, word, wordPoints, canvasPath) =>
 
 /* 'Health Check' - Game Stage Management  Server Functions  */
 
-export const checkStageStatues = async (gameID, username) => {
-	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.checkState;
+export const getNextStage = async (gameID, username) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.nextStage;
 
 	try {
 		return await fetch(requestUrl, {
@@ -72,7 +72,7 @@ export const checkStageStatues = async (gameID, username) => {
 	} catch (err) {
 		// TODO: Error Handler
 		console.log(err);
-		let message = "Error in serverService->checkStageStatues";
+		let message = "Error in serverService->getNextStage";
 		console.log(message);
 		throw new Error(message);
 	}

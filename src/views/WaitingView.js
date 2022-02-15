@@ -1,40 +1,16 @@
 import React from "react";
-
-// , { useEffect }
-// import { useSelector, useDispatch } from "react-redux";
-
-// import { checkStageStatues } from "../utils/serverService";
+import { useHealthCheck } from "@webscopeio/react-health-check";
 
 import "./WaitingView.css";
 
 const WaitingView = (props) => {
-	// const dispatch = useDispatch();
+	const { available, service } = useHealthCheck("stage");
 
-	// const [gameID, username, gameStage] = useSelector((state) => {
-	// 	const { gameID } = state.game;
-	// 	const { username } = state.users;
-	// 	const { currentGameStage } = state.gameStage;
-
-	// 	return [gameID, username, currentGameStage];
-	// });
-
-	// useEffect(() => {
-	//     const checkStage = async () => {
-	//         const result = await checkStageStatues(gameID, username);
-
-	//         console.log(result);
-
-	//     }
-	//     checkStage();
-	// }, [dispatch]);
-
-	// console.log(gameID);
-	// console.log(username);
-	// console.log(gameStage);
-
+	console.log(service);
 	return (
 		<div className="waiting-view">
 			<h2>Waiting View</h2>
+			{/* {available && <div>xxx</div>} */}
 		</div>
 	);
 };

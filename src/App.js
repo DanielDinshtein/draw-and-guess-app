@@ -1,7 +1,7 @@
 import React from "react";
-import { createStore, combineReducers, applyMiddleware } from "redux";
-import { Provider } from "react-redux";
 import thunk from "redux-thunk";
+import { Provider } from "react-redux";
+import { createStore, combineReducers, applyMiddleware } from "redux";
 import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 
 import usersReducer from "./store/reducers/users";
@@ -14,6 +14,7 @@ import DrawingView from "./views/DrawingView";
 import GuessingView from "./views/GuessingView";
 import WaitingView from "./views/WaitingView";
 
+import CheckHealth from "./components/CheckHealth";
 import Header from "./components/Header";
 import "./App.css";
 
@@ -50,19 +51,21 @@ function App() {
 	return (
 		<div className="App">
 			<Provider store={store}>
-				<Header subtitle={headerSubtitle} />
-				<Routes>
-					<Route path="/" element={<WelcomeView />} />
-					{isUserAuthenticated && (
-						<>
-							<Route path="/wordChoosing" element={<WordChoosingView />} />
-							<Route path="/drawing" element={<DrawingView />} />
-							<Route path="/guessing" element={<GuessingView />} />
-							<Route path="/waiting" element={<WaitingView />} />
-						</>
-					)}
-					<Route path="/*" element={<Navigate to={"/"} state={"Welcome"} />} />
-				</Routes>
+				<CheckHealth>
+					<Header subtitle={headerSubtitle} />
+					<Routes>
+						<Route path="/" element={<WelcomeView />} />
+						{isUserAuthenticated && (
+							<>
+								<Route path="/wordChoosing" element={<WordChoosingView />} />
+								<Route path="/drawing" element={<DrawingView />} />
+								<Route path="/guessing" element={<GuessingView />} />
+								<Route path="/waiting" element={<WaitingView />} />
+							</>
+						)}
+						<Route path="/*" element={<Navigate to={"/"} state={"Welcome"} />} />
+					</Routes>
+				</CheckHealth>
 			</Provider>
 		</div>
 	);
