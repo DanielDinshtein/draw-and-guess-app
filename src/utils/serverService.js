@@ -69,16 +69,15 @@ export const sendChosenWordDetails = async (gameID, word, wordPoints) => {
 	}
 };
 
-export const sendDrawDetails = async (username, word, wordPoints, canvasPath) => {
-	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.drawDetails;
+export const sendDrawDetails = async (gameID, wordPoints, canvasPath) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.finishDrawing;
 
 	try {
 		return await fetch(requestUrl, {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
-				username: username,
-				word: word,
+				gameID: gameID,
 				wordPoints: wordPoints,
 				canvasPath: canvasPath,
 			}),

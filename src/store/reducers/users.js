@@ -1,5 +1,7 @@
 import { LOGIN } from "../actions/users";
 
+import { FINISH_DRAW } from "../actions/game";
+
 import { ROLES } from "../../utils/constants";
 
 const initialState = {
@@ -12,6 +14,11 @@ export default (state = initialState, action) => {
 	switch (action.type) {
 		case LOGIN:
 			return { username: action.username, playerRole: action.playerRole };
+		case FINISH_DRAW:
+			return {
+				...state,
+				playerRole: action.playerRole
+			};
 		default:
 			return state;
 	}

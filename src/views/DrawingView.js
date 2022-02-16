@@ -43,9 +43,9 @@ const DrawingView = (props) => {
 
 	const sendDrawHandler = async () => {
 		try {
-			const canvasPath = await canvas.current.exportPaths();
+			const canvasPaths = await canvas.current.exportPaths();
 
-			await dispatch(gameActions.SEND_DRAW(word, wordPoints, canvasPath));
+			await dispatch(gameActions.finishDraw(wordPoints, canvasPaths));
 			navigate("/waiting", { state: { subtitle: "Waiting Room" } });
 		} catch (err) {
 			// TODO: Error Handler

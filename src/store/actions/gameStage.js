@@ -44,6 +44,9 @@ export const setChosenWord = (word, wordPoints) => {
 			} else if (response.status === 400) {
 				let message = data.message;
 				throw new Error(message);
+			} else if (response.status === 404) {
+				let message = data.message;
+				throw new Error(message);
 			}
 		} catch (err) {
 			// TODO: Error Handler

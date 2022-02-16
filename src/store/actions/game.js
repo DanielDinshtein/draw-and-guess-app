@@ -1,8 +1,9 @@
 import { initGameSession, sendDrawDetails } from "../../utils/serverService";
 
+import { ROLES, STAGES } from "../../utils/constants";
+
 export const INIT_GAME = "INIT_GAME";
-export const SEND_DRAW = "SEND_DRAW";
-export const START_GAME = "START_GAME";
+export const FINISH_DRAW = "FINISH_DRAW";
 
 export const initGame = (username) => {
 	return async (dispatch, getState) => {
@@ -33,42 +34,20 @@ export const initGame = (username) => {
 	};
 };
 
-export const startGame = (playerRole, word, wordPoints) => {
+export const finishDraw = (wordPoints, canvasPaths) => {
 	return async (dispatch, getState) => {
 		try {
-			const username = getState().users.username;
-			const response = await initGameSession(username, playerRole, word);
-
-			console.log(response);
-
-			dispatch({
-				type: START_GAME,
-				word: word,
-				wordPoints: wordPoints,
-				playerRole: playerRole,
-			});
-		} catch (err) {
-			//  TODO: Error Handler
-			console.log(err);
-			let message = "Error in game->startGame";
-			console.log(message);
-			throw new Error(message);
-		}
-	};
-};
-
-export const sendDraw = (word, wordPoints, canvasPath) => {
-	return async (dispatch, getState) => {
-		try {
-			const username = getState().users.username;
-			const response = await sendDrawDetails(username, word, wordPoints, canvasPath);
+			const { gameID } = getState().game;
+			const response = await sendDrawDetails(gameID, wordPoints, canvasPaths);
 
 			const data = await response.json();
 
-			//  TODO: Edit this
 			if (response.status === 200) {
-				console.log(data);
-			} else if (response.status === 401) {
+				dispatch({ type: FINISH_DRAW, playerRole: ROLES.GUESS, gameStage: STAGES.WAITING });
+			} else if (response.status === 400) {
+				let message = data.message;
+				throw new Error(message);
+			} else if (response.status === 404) {
 				let message = data.message;
 				throw new Error(message);
 			}
@@ -81,3 +60,27 @@ export const sendDraw = (word, wordPoints, canvasPath) => {
 		}
 	};
 };
+
+// export const startGame = (playerRole, word, wordPoints) => {
+// 	return async (dispatch, getState) => {
+// 		try {
+// 			const username = getState().users.username;
+// 			const response = await initGameSession(username, playerRole, word);
+
+// 			console.log(response);
+
+// 			dispatch({
+// 				type: START_GAME,
+// 				word: word,
+// 				wordPoints: wordPoints,
+// 				playerRole: playerRole,
+// 			});
+// 		} catch (err) {
+// 			//  TODO: Error Handler
+// 			console.log(err);
+// 			let message = "Error in game->startGame";
+// 			console.log(message);
+// 			throw new Error(message);
+// 		}
+// 	};
+// };

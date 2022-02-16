@@ -1,4 +1,5 @@
 import { SET_CURRENT_STAGE, SET_CHOSEN_WORD } from "../actions/gameStage";
+import { FINISH_DRAW } from "../actions/game";
 
 import { STAGES } from "../../utils/constants";
 
@@ -21,6 +22,11 @@ export default (state = initialState, action) => {
 				...state,
 				word: action.word,
 				wordPoints: action.wordPoints,
+			};
+		case FINISH_DRAW:
+			return {
+				...state,
+				customElements: action.gameStage,
 			};
 		default:
 			return state;
