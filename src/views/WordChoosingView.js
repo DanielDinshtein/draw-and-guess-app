@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import WordButton from "../components/WordButton";
 import SubmitButton from "../components/SubmitButton";
 
-import * as gameActions from "../store/actions/game";
+import * as gameStageActions from "../store/actions/gameStage";
 import { getWords } from "../utils/wordsVocabulary";
-import { PLAYER_ROLE } from "../utils/constants";
 import "./WordChoosingView.css";
 
 const words = getWords();
@@ -29,14 +28,10 @@ const WordChoosingView = (props) => {
 	const onStartDrawingHandler = async () => {
 		try {
 			if (isNewGame) {
-				await dispatch(gameActions.startGame(PLAYER_ROLE, word, wordPoints));
-				navigate("/drawing", { state: "Drawing" });
-				// { subtitle: "Waiting Room" }
-			} else {
-				//  TODO: Not New Game - Update Game
-				console.log("TODO: Not New Game - Update Game");
-				navigate("/waiting", { state: "Waiting Room" });
+				// TODO: Maybe initGame() ??
 			}
+			await dispatch(gameStageActions.setChosenWord(word, wordPoints));
+			navigate("/drawing", { state: { subtitle: "Drawing Room" } });
 		} catch (err) {
 			// TODO: Error Handler
 			console.log(err);

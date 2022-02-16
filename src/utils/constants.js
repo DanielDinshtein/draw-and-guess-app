@@ -4,6 +4,7 @@ export const END_POINTS = {
 
 	/* game */
 	initGame: "/games",
+	chosenWord: "/games/chosenWord",
 	drawDetails: "/games/draw",
 	nextStage: "/games/stage",
 

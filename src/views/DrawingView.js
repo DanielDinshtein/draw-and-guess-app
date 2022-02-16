@@ -39,7 +39,7 @@ const DrawingView = (props) => {
 		eraserWidth: { value: eraserWidthState, setter: setEraserWidthState },
 	};
 
-	const { word, wordPoints } = useSelector((state) => state.game);
+	const { word, wordPoints } = useSelector((state) => state.gameStage);
 
 	const sendDrawHandler = async () => {
 		try {

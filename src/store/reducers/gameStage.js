@@ -1,4 +1,4 @@
-import { SET_CURRENT_STAGE } from "../actions/gameStage";
+import { SET_CURRENT_STAGE, SET_CHOSEN_WORD } from "../actions/gameStage";
 
 import { STAGES } from "../../utils/constants";
 
@@ -15,6 +15,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				currentGameStage: action.gameStage,
+			};
+		case SET_CHOSEN_WORD:
+			return {
+				...state,
+				word: action.word,
+				wordPoints: action.wordPoints,
 			};
 		default:
 			return state;
