@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useHealthCheck } from "@webscopeio/react-health-check";
 
-import * as gameActions from "../store/actions/game";
+import * as gameStageActions from "../store/actions/gameStage";
 
 import { ROLES, STAGES } from "../utils/constants";
 import { services } from "../utils/checkHealthUtils";
@@ -14,7 +14,7 @@ import "./WaitingView.css";
 const WaitingView = (props) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { username,  playerRole } = useSelector((state) => state.users);
+	const { username, playerRole } = useSelector((state) => state.users);
 
 	let toStage;
 
@@ -27,13 +27,11 @@ const WaitingView = (props) => {
 	const onErrorHandler = useCallback(
 		async ({ service, timestamp }) => {
 			if (service.name === STAGES.WORD_CHOOSING) {
-				// TODO: This Func need to be  -> gameActions.updateServerStage(stage)
-				await dispatch(gameActions.initGame(username, service.name));
+				await dispatch(gameStageActions.onServerStateChange(username, service.name));
 
 				navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
 			} else if (service.name === STAGES.GUESSING) {
-				//  NOTE:  gameActions.updateServerStage(stage)
-				await dispatch(gameActions.initGame(service.name));
+				await dispatch(gameStageActions.onServerStateChange(username, service.name));
 				navigate("/waiting", { state: { subtitle: "Waiting Room" } });
 			}
 		},

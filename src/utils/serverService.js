@@ -23,7 +23,6 @@ export const userLogin = async (username) => {
 };
 
 /* Game -  Server Functions  */
-// NOTE:  Notify Server To Start Game
 
 export const initGameSession = async (gameID, username) => {
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.initGame;
@@ -71,21 +70,23 @@ export const sendDrawDetails = async (username, word, wordPoints, canvasPath) =>
 
 /* 'Health Check' - Game Stage Management  Server Functions  */
 
-export const getNextStage = async (gameID, username) => {
-	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.nextStage;
+export const updateServerOnStageChange = async (stage) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.health + "/" + stage;
 
 	try {
 		return await fetch(requestUrl, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
-				gameID: gameID,
-				username: username,
+				changeState: true,
 			}),
 		});
 	} catch (err) {
 		// TODO: Error Handler
 		console.log(err);
-		let message = "Error in serverService->getNextStage";
+		let message = "Error in serverService-> updateServerOnStageChange";
 		console.log(message);
 		throw new Error(message);
 	}
 };
+
