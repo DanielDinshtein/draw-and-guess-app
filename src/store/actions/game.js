@@ -70,8 +70,12 @@ export const finishGuess = () => {
 
 			const data = await response.json();
 
+			console.log(data);
+			console.log(data?.result);
+			console.log(data?.result?.totalPoints);
+
 			if (response.status === 200) {
-				dispatch({ type: FINISH_GUESS, playerRole: ROLES.DRAW, gameStage: STAGES.WORD_CHOOSING, totalPoints: data?.result?.totalPoints });
+				dispatch({ type: FINISH_GUESS, playerRole: ROLES.DRAW, gameStage: STAGES.WORD_CHOOSING, totalPoints: data?.result?.newTotalPoints });
 			} else if (response.status === 400) {
 				let message = data.message;
 				throw new Error(message);

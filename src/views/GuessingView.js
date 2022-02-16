@@ -12,6 +12,7 @@ import { getCanvasPaths } from "../utils/serverService";
 import "./GuessingView.css";
 import "./DrawingView.css";
 import "./WelcomeView.css";
+import "./WordChoosingView";
 
 const styles = {
 	border: "0.0625rem solid #9c9c9c",
@@ -27,13 +28,13 @@ const initialProps = {
 
 const GuessingView = (props) => {
 	const canvas = useRef();
-	const guessRef = useRef();
-	const wrongGuessMsg = useRef("");
+	const guessRef = useRef("");
 
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const [word, setWord] = useState("");
+	const [showWrong, setShowWrong] = useState(false);
 
 	const { gameID } = useSelector((state) => state.game);
 
@@ -56,7 +57,7 @@ const GuessingView = (props) => {
 			await dispatch(gameActions.finishGuess());
 			navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
 		} else {
-			wrongGuessMsg.current.value = "Guess Again";
+			setShowWrong(true);
 		}
 	};
 
@@ -67,13 +68,26 @@ const GuessingView = (props) => {
 				<Canvas canvasRef={canvas} style={styles} {...initialProps}>
 					<div className="user-name">
 						<h4>Please Enter Your Guess</h4>
-						<input type="text" id="input-username" ref={guessRef} required />
+						<input
+							type="text"
+							id="input-username"
+							ref={guessRef}
+							required
+							onInput={() => {
+								setShowWrong(false);
+							}}
+						/>
 					</div>
 					<SubmitButton type="submit" id="send-draw-button" onClick={onGuess}>
 						Guess
 					</SubmitButton>
+					{showWrong && (
+						<div id="display-chosen-word-container">
+							<p id="p-underline"></p>
+							<p id="p-word">&nbsp;Guess Again&nbsp;</p>
+						</div>
+					)}
 				</Canvas>
-				{wrongGuessMsg}
 			</div>
 		</div>
 	);
