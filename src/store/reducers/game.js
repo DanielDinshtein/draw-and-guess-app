@@ -1,5 +1,5 @@
 import { LOGIN } from "../actions/users";
-import { START_GAME } from "../actions/game";
+import { INIT_GAME, START_GAME } from "../actions/game";
 
 const initialState = {
 	gameID: "",
@@ -14,6 +14,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				gameID: action.gameID,
+			};
+		case INIT_GAME:
+			return {
+				...state,
+				gameID: action.gameID,
+				timeStarted: action.timeStarted,
 			};
 		case START_GAME:
 			return {

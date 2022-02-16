@@ -1,24 +1,28 @@
 import { initGameSession, sendDrawDetails } from "../../utils/serverService";
 
+export const INIT_GAME = "INIT_GAME";
 export const SEND_DRAW = "SEND_DRAW";
 export const START_GAME = "START_GAME";
-export const INIT_GAME = "INIT_GAME";
 
-// NOTE: Need This??
 export const initGame = (username) => {
 	return async (dispatch, getState) => {
 		try {
 			const { gameID } = getState().game;
 
+			// timeStarted =?   gameID =?
 			const response = await initGameSession(gameID, username);
 
 			const data = await response.json();
 
-			console.log(data);
+			if (response.status === 200) {
+				const { id } = data.result;
+				const { timeStarted } = data.result;
 
-			dispatch({
-				type: START_GAME,
-			});
+				dispatch({ type: INIT_GAME, gameID: id, timeStarted: timeStarted });
+			} else if (response.status === 400) {
+				let message = data.message;
+				throw new Error(message);
+			}
 		} catch (err) {
 			//  TODO: Error Handler
 			console.log(err);

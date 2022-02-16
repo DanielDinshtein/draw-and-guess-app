@@ -14,7 +14,7 @@ import "./WaitingView.css";
 const WaitingView = (props) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { playerRole } = useSelector((state) => state.users);
+	const { username,  playerRole } = useSelector((state) => state.users);
 
 	let toStage;
 
@@ -27,15 +27,17 @@ const WaitingView = (props) => {
 	const onErrorHandler = useCallback(
 		async ({ service, timestamp }) => {
 			if (service.name === STAGES.WORD_CHOOSING) {
-				await dispatch(gameActions.initGame(service.name));
+				// TODO: This Func need to be  -> gameActions.updateServerStage(stage)
+				await dispatch(gameActions.initGame(username, service.name));
 
 				navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
 			} else if (service.name === STAGES.GUESSING) {
+				//  NOTE:  gameActions.updateServerStage(stage)
 				await dispatch(gameActions.initGame(service.name));
 				navigate("/waiting", { state: { subtitle: "Waiting Room" } });
 			}
 		},
-		[dispatch, navigate]
+		[dispatch, navigate, username]
 	);
 
 	useHealthCheck({

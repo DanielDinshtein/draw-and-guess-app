@@ -23,15 +23,27 @@ export const userLogin = async (username) => {
 };
 
 /* Game -  Server Functions  */
+// NOTE:  Notify Server To Start Game
 
 export const initGameSession = async (gameID, username) => {
-	// NOTE:  Notify Server To Start Game
-
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.initGame;
 
-	return new Promise((resolve, reject) => {
-		resolve(requestUrl);
-	});
+	try {
+		return await fetch(requestUrl, {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				username: username,
+				gameID: gameID,
+			}),
+		});
+	} catch (err) {
+		// TODO: Error Handler
+		console.log(err);
+		let message = "Error in serverService->initGameSession";
+		console.log(message);
+		throw new Error(message);
+	}
 };
 
 export const sendDrawDetails = async (username, word, wordPoints, canvasPath) => {
