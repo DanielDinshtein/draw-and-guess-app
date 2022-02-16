@@ -6,7 +6,7 @@ export const END_POINTS = {
 	initGame: "/games",
 	chosenWord: "/games/chosenWord",
 	finishDrawing: "/games/draw",
-	nextStage: "/games/stage",
+	guessingStage: "/games/guess",
 
 	/* check health - server */
 	health: "/health",
