@@ -1,8 +1,11 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import Canvas from "../components/Canvas";
 import SubmitButton from "../components/SubmitButton";
+
+import * as gameActions from "../store/actions/game";
 
 import { getCanvasPaths } from "../utils/serverService";
 
@@ -25,6 +28,10 @@ const initialProps = {
 const GuessingView = (props) => {
 	const canvas = useRef();
 	const guessRef = useRef();
+	const wrongGuessMsg = useRef("");
+
+	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const [word, setWord] = useState("");
 
@@ -44,11 +51,12 @@ const GuessingView = (props) => {
 		getCanvas(gameID);
 	}, [gameID, word]);
 
-	const onGuess = () => {
+	const onGuess = async () => {
 		if (word === guessRef.current.value) {
-			console.log("Yes");
+			await dispatch(gameActions.finishGuess());
+			navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
 		} else {
-			console.log("guessing");
+			wrongGuessMsg.current.value = "Guess Again";
 		}
 	};
 
@@ -65,6 +73,7 @@ const GuessingView = (props) => {
 						Guess
 					</SubmitButton>
 				</Canvas>
+				{wrongGuessMsg}
 			</div>
 		</div>
 	);

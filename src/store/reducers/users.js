@@ -1,6 +1,6 @@
 import { LOGIN } from "../actions/users";
 
-import { FINISH_DRAW } from "../actions/game";
+import { FINISH_DRAW, FINISH_GUESS } from "../actions/game";
 
 import { ROLES } from "../../utils/constants";
 
@@ -17,7 +17,12 @@ export default (state = initialState, action) => {
 		case FINISH_DRAW:
 			return {
 				...state,
-				playerRole: action.playerRole
+				playerRole: action.playerRole,
+			};
+		case FINISH_GUESS:
+			return {
+				...state,
+				playerRole: action.playerRole,
 			};
 		default:
 			return state;

@@ -1,5 +1,6 @@
 import { LOGIN } from "../actions/users";
 import { INIT_GAME } from "../actions/game";
+import { FINISH_GUESS } from "../actions/game";
 
 const initialState = {
 	gameID: "",
@@ -20,6 +21,11 @@ export default (state = initialState, action) => {
 				...state,
 				gameID: action.gameID,
 				timeStarted: action.timeStarted,
+			};
+		case FINISH_GUESS:
+			return {
+				...state,
+				totalPoints: action.totalPoints,
 			};
 		default:
 			return state;

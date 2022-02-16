@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import WordButton from "../components/WordButton";
@@ -15,7 +15,6 @@ const WordChoosingView = (props) => {
 	const startDisabled = useRef(true);
 	const [word, setWord] = useState("");
 	const [wordPoints, setWordPoints] = useState(0);
-	const isNewGame = useSelector((state) => state.game.totalPoints === 0);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -27,9 +26,6 @@ const WordChoosingView = (props) => {
 
 	const onStartDrawingHandler = async () => {
 		try {
-			if (isNewGame) {
-				// TODO: Maybe initGame() ??
-			}
 			await dispatch(gameStageActions.setChosenWord(word, wordPoints));
 			navigate("/drawing", { state: { subtitle: "Drawing Room" } });
 		} catch (err) {
