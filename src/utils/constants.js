@@ -1,6 +1,7 @@
 export const END_POINTS = {
 	/* player */
 	login: "/players/login",
+	
 
 	/* game */
 	initGame: "/games",
