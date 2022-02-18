@@ -1,11 +1,11 @@
 import { LOGIN } from "../actions/users";
-import { INIT_GAME } from "../actions/game";
+import { START_GAME } from "../actions/game";
 import { FINISH_GUESS } from "../actions/game";
 
 const initialState = {
 	gameID: "",
 	totalPoints: 0,
-	timeStarted: new Date(),
+	startTime: "",
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
@@ -16,11 +16,10 @@ export default (state = initialState, action) => {
 				...state,
 				gameID: action.gameID,
 			};
-		case INIT_GAME:
+		case START_GAME:
 			return {
 				...state,
-				gameID: action.gameID,
-				timeStarted: action.timeStarted,
+				startTime: action.startTime,
 			};
 		case FINISH_GUESS:
 			return {

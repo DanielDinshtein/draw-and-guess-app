@@ -1,12 +1,10 @@
 import { SET_CURRENT_STAGE, SET_CHOSEN_WORD } from "../actions/gameStage";
 import { FINISH_DRAW, FINISH_GUESS } from "../actions/game";
 
-import { STAGES } from "../../utils/constants";
-
 const initialState = {
 	word: "",
 	wordPoints: 0,
-	currentGameStage: STAGES.WAITING,
+	canvasPaths: [],
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

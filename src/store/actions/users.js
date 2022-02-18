@@ -1,5 +1,6 @@
 import { userLogin } from "../../utils/serverService";
 
+
 export const LOGIN = "LOGIN";
 
 export const login = (username) => {
@@ -10,12 +11,16 @@ export const login = (username) => {
 			const data = await response.json();
 
 			if (response.status === 200) {
-				const { gameID } = data.result.result;
-				const { playerRole } = data.result.result.player;
+				const userID = data.user._id;
+				const username = data.user.name;
+				const playerRole = data.user.role;
 
-				dispatch({ type: LOGIN, username: username, playerRole: playerRole, gameID: gameID });
+				const gameID = data.user.gameSession._id;
+				const startTime = data.user.gameSession.startTime;
 
-				return playerRole;
+				dispatch({ type: LOGIN, userID: userID, username: username, playerRole: playerRole, gameID: gameID });
+
+				return [playerRole, startTime];
 			} else if (response.status === 401) {
 				let message = data.message;
 				throw new Error(message);

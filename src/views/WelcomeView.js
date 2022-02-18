@@ -5,9 +5,8 @@ import { useNavigate } from "react-router-dom";
 import SubmitButton from "../components/SubmitButton";
 import * as usersActions from "../store/actions/users";
 import * as gameActions from "../store/actions/game";
-import * as gameStageActions from "../store/actions/gameStage";
 
-import { ROLES, STAGES } from "../utils/constants";
+import { ROLES } from "../utils/constants";
 import "./WelcomeView.css";
 
 const WelcomeView = (props) => {
@@ -20,17 +19,19 @@ const WelcomeView = (props) => {
 		const username = usernameRef.current.value;
 
 		try {
-			const loginResult = await dispatch(usersActions.login(username));
+			const [playerRole, startTime] = await dispatch(usersActions.login(username));
 
-			let to = "/waiting";
-			let state = { subtitle: "Waiting Room" };
+			let to;
+			let state;
 
-			if (loginResult === ROLES.DRAW) {
-				dispatch(gameStageActions.setCurrentStage(STAGES.WAITING));
-			} else if (loginResult === ROLES.GUESS) {
-				dispatch(gameStageActions.setCurrentStage(STAGES.WAITING));
-				await dispatch(gameActions.initGame(username));
-			} else if (!loginResult) {
+			if (playerRole === ROLES.DRAW) {
+				to = "/waiting";
+				state = { subtitle: "Waiting Room" };
+			} else if (playerRole === ROLES.GUESS) {
+				dispatch(gameActions.startGame(startTime));
+				to = "/guessing";
+				state = { subtitle: "Guessing Draw" };
+			} else {
 				to = "/";
 				state = { subtitle: "Welcome" };
 			}
@@ -53,6 +54,16 @@ const WelcomeView = (props) => {
 					Start Game
 				</SubmitButton>
 			</form>
+			<button
+				onClick={async () => {
+					const username = usernameRef.current.value;
+					console.log(username);
+					// await usersActions.loginTest(username);
+					console.log(username);
+				}}
+			>
+				Test Me
+			</button>
 		</div>
 	);
 };
