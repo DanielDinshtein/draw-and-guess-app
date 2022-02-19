@@ -137,6 +137,48 @@ export const notifyFinishGuess = async (gameID) => {
 
 /* 'Health Check' - Game Stage Management  Server Functions  */
 
+
+export const wordChoosingState = async (userID) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing;
+
+	try {
+		return await fetch(requestUrl, {
+			method: "GET",
+			credentials: "include",
+			headers: {userID: userID},
+		});
+	} catch (err) {
+		// TODO: Error Handler
+		console.log(err);
+		let message = "Error in serverService-> wordChoosingState";
+		console.log(message);
+		throw new Error(message);
+	}
+}; 
+
+
+export const onWordChoosingState = async (userID) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing;
+
+	try {
+		return await fetch(requestUrl, {
+			method: "POST",
+			headers: { "Content-Type": "application/json", userID: userID },
+			credentials: "include",
+			body: JSON.stringify({
+				changeState: true,
+			}),
+		});
+	} catch (err) {
+		// TODO: Error Handler
+		console.log(err);
+		let message = "Error in serverService-> onWordChoosingState";
+		console.log(message);
+		throw new Error(message);
+	}
+};
+
+
 export const updateServerOnStageChange = async (stage) => {
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.health + "/" + stage;
 

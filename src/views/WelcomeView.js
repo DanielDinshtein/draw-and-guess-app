@@ -54,16 +54,6 @@ const WelcomeView = (props) => {
 					Start Game
 				</SubmitButton>
 			</form>
-			<button
-				onClick={async () => {
-					const username = usernameRef.current.value;
-					console.log(username);
-					// await usersActions.loginTest(username);
-					console.log(username);
-				}}
-			>
-				Test Me
-			</button>
 		</div>
 	);
 };

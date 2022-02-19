@@ -1,4 +1,4 @@
-import { END_POINTS } from "./constants";
+import { END_POINTS } from "../constants";
 
 /* Check Health - Error Handler */
 
@@ -51,10 +51,17 @@ const health = {
 	url: process.env.REACT_APP_SERVER_URL + END_POINTS.health,
 };
 
+
+
 const wordChoosing = {
 	name: "wordChoosing",
-	url: process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing,
+	url: './src/utils/checkHealth/wordChoosingHealth.js',
 };
+
+// const wordChoosing = {
+// 	name: "wordChoosing",
+// 	url: process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing,
+// };
 
 const guessing = {
 	name: "guessing",

@@ -1,20 +1,18 @@
-import React, { useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useRef, useCallback } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { useHealthCheck } from "@webscopeio/react-health-check";
-
-import * as gameStageActions from "../store/actions/gameStage";
+import WordChoosingHealth from "../utils/checkHealth/wordChoosingHealth";
+import { onWordChoosingState } from "../utils/serverService";
 
 import { ROLES, STAGES } from "../utils/constants";
-import { services } from "../utils/checkHealthUtils";
 
 import "./WaitingView.css";
 
 const WaitingView = (props) => {
-	const dispatch = useDispatch();
+	const intervalID = useRef();
 	const navigate = useNavigate();
-	const { username, playerRole } = useSelector((state) => state.users);
+	const { userID, playerRole } = useSelector((state) => state.users);
 
 	let toStage;
 
@@ -24,33 +22,25 @@ const WaitingView = (props) => {
 		toStage = STAGES.GUESSING;
 	}
 
-	const onErrorHandler = useCallback(
-		async ({ service, timestamp }) => {
-			if (service.name === STAGES.WORD_CHOOSING) {
-				await dispatch(gameStageActions.onServerStateChange(username, service.name));
+	const changeStateHandler = useCallback(async () => {
+		clearInterval(intervalID.current);
 
-				navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
-			} else if (service.name === STAGES.GUESSING) {
-				await dispatch(gameStageActions.onServerStateChange(username, service.name));
+		if (toStage === STAGES.WORD_CHOOSING) {
+			await onWordChoosingState(userID);
+			// dispatch(gameStageActions.onServerStateChange(username, service.name));
+			navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
+		//  TODO: Need This?
+		} else if (toStage === STAGES.GUESSING) {
+			await onWordChoosingState(userID);
 
-				navigate("/guessing", { state: { subtitle: "Guessing Draw" } });
-			}
-		},
-		[dispatch, navigate, username]
-	);
-
-	useHealthCheck({
-		service: services[toStage],
-		onSuccess: ({ service, timestamp }) => {
-			console.log(`Service "${service.name}" is available since "${timestamp}" 🎉`);
-		},
-		onError: onErrorHandler,
-		refreshInterval: 2000,
-	});
+			navigate("/guessing", { state: { subtitle: "Guessing Draw" } });
+		}
+	}, [navigate, toStage, userID]);
 
 	return (
 		<div className="waiting-view">
 			<h2>Waiting View</h2>
+			<WordChoosingHealth userID={userID} refreshInterval={2000} intervalRef={intervalID} onChangeState={changeStateHandler} />
 		</div>
 	);
 };
