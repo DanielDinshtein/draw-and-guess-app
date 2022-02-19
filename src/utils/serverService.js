@@ -1,5 +1,7 @@
 import { END_POINTS } from "./constants";
 
+const headers = { "Content-Type": "application/json" };
+
 /* User -  Server Functions  */
 
 export const userLogin = async (username) => {
@@ -8,7 +10,8 @@ export const userLogin = async (username) => {
 	try {
 		return await fetch(requestUrl, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			headers: headers,
+			credentials: "same-origin",
 			body: JSON.stringify({
 				username: username,
 			}),
@@ -30,7 +33,8 @@ export const initGameSession = async (gameID, username) => {
 	try {
 		return await fetch(requestUrl, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			headers: headers,
+			credentials: "same-origin",
 			body: JSON.stringify({
 				username: username,
 				gameID: gameID,
@@ -53,7 +57,8 @@ export const sendChosenWordDetails = async (gameID, word, wordPoints) => {
 	try {
 		return await fetch(requestUrl, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			headers: headers,
+			credentials: 'same-origin',
 			body: JSON.stringify({
 				gameID: gameID,
 				word: word,
@@ -75,7 +80,8 @@ export const sendDrawDetails = async (gameID, wordPoints, canvasPaths) => {
 	try {
 		return await fetch(requestUrl, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			headers: headers,
+			credentials: 'same-origin',
 			body: JSON.stringify({
 				gameID: gameID,
 				wordPoints: wordPoints,
@@ -96,7 +102,8 @@ export const getCanvasPaths = async (gameID) => {
 
 	try {
 		return await fetch(requestUrl, {
-			headers: { "Content-Type": "application/json" },
+			headers: headers,
+			credentials: 'same-origin',
 		});
 	} catch (err) {
 		// TODO: Error Handler
@@ -113,7 +120,8 @@ export const notifyFinishGuess = async (gameID) => {
 	try {
 		return await fetch(requestUrl, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			headers: headers,
+			credentials: 'same-origin',
 			body: JSON.stringify({
 				gameID: gameID,
 			}),
@@ -135,7 +143,8 @@ export const updateServerOnStageChange = async (stage) => {
 	try {
 		return await fetch(requestUrl, {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
+			headers: headers,
+			credentials: 'same-origin',
 			body: JSON.stringify({
 				changeState: true,
 			}),
