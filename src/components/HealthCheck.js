@@ -29,7 +29,7 @@ const HealthCheck = (props) => {
 					setChangeState(true);
 				}
 			} catch (err) {
-				// TODO: Error Handler
+				// TODO: Error Hand
 				alert("something went wrong");
 				console.log(err);
 				let message = "Error in serverService-> HealthCheck";
