@@ -1,6 +1,6 @@
-import { sendDrawDetails, notifyFinishGuess } from "../../utils/serverService";
+import { sendDrawDetails, sendGuessDetails } from "../../utils/serverService";
 
-import { ROLES, STAGES } from "../../utils/constants";
+import { ROLES } from "../../utils/constants";
 
 export const START_GAME = "START_GAME";
 export const FINISH_DRAW = "FINISH_DRAW";
@@ -38,20 +38,19 @@ export const finishDraw = (word, wordPoints, canvasPaths) => {
 	};
 };
 
-export const finishGuess = () => {
+export const finishGuess = (wordPoints) => {
 	return async (dispatch, getState) => {
 		try {
 			const { gameID } = getState().game;
-			const response = await notifyFinishGuess(gameID);
+			const { userID } = getState().users;
+			const response = await sendGuessDetails(gameID, userID, wordPoints);
 
 			const data = await response.json();
 
-			console.log(data);
-			console.log(data?.result);
-			console.log(data?.result?.totalPoints);
-
 			if (response.status === 200) {
-				dispatch({ type: FINISH_GUESS, playerRole: ROLES.DRAW, gameStage: STAGES.WORD_CHOOSING, totalPoints: data?.result?.newTotalPoints });
+				const { totalPoints } = data;
+
+				dispatch({ type: FINISH_GUESS, playerRole: ROLES.DRAW, totalPoints: totalPoints });
 			} else if (response.status === 400) {
 				let message = data.message;
 				throw new Error(message);
@@ -62,7 +61,7 @@ export const finishGuess = () => {
 		} catch (err) {
 			//  TODO: Error Handler
 			console.log(err);
-			let message = "Error in game->sendDraw";
+			let message = "Error in game->finishGuess";
 			console.log(message);
 			throw new Error(message);
 		}

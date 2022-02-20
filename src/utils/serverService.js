@@ -99,33 +99,18 @@ export const sendDrawDetails = async (gameID, userID, word, wordPoints, canvasPa
 	}
 };
 
-export const getCanvasPaths = async (gameID) => {
-	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.guessingStage + `?gameID=${gameID}`;
-
-	try {
-		return await fetch(requestUrl, {
-			headers: headers,
-			credentials: "same-origin",
-		});
-	} catch (err) {
-		// TODO: Error Handler
-		console.log(err);
-		let message = "Error in serverService->sendDrawDetails";
-		console.log(message);
-		throw new Error(message);
-	}
-};
-
-export const notifyFinishGuess = async (gameID) => {
-	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.guessingStage;
+export const sendGuessDetails = async (gameID, userID, wordPoints) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.finishGuess;
 
 	try {
 		return await fetch(requestUrl, {
 			method: "POST",
 			headers: headers,
-			credentials: "same-origin",
+			credentials: "include",
 			body: JSON.stringify({
 				gameID: gameID,
+				userID: userID,
+				wordPoints: wordPoints,
 			}),
 		});
 	} catch (err) {

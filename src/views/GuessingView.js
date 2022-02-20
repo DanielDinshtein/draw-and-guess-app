@@ -42,8 +42,8 @@ const GuessingView = (props) => {
 
 	const onGuess = async () => {
 		if (word === guessRef.current.value) {
-			console.log(wordPoints);
-			await dispatch(gameActions.finishGuess());
+			await dispatch(gameActions.finishGuess(wordPoints));
+
 			navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
 		} else {
 			setShowWrong(true);

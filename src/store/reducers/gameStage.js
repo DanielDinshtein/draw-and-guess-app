@@ -1,5 +1,5 @@
 import { SET_GAME_STAGE, SET_WORD_DETAILS, SET_CURRENT_STAGE, SET_CHOSEN_WORD } from "../actions/gameStage";
-import { FINISH_DRAW, FINISH_GUESS } from "../actions/game";
+import { FINISH_DRAW } from "../actions/game";
 
 const initialState = {
 	word: "",
@@ -38,11 +38,6 @@ export default (state = initialState, action) => {
 				...state,
 				word: action.word,
 				wordPoints: action.wordPoints,
-			};
-		case FINISH_GUESS:
-			return {
-				...state,
-				customElements: action.gameStage,
 			};
 		default:
 			return state;

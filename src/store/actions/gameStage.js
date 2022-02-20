@@ -43,7 +43,6 @@ export const guessingCheckChange = (userID, canvasPaths) => {
 			if (response.status === 200) {
 				const { word, wordPoints, canvasPaths } = data;
 
-				console.log(data);
 
 				dispatch({ type: SET_GAME_STAGE, word: word, wordPoints: wordPoints, canvasPaths: canvasPaths });
 			} else if (response.status === 400) {

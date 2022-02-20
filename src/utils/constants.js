@@ -6,9 +6,9 @@ export const END_POINTS = {
 	/* game */
 	initGame: "/games",
 	chosenWord: "/games/chosenWord",
+
 	finishDrawing: "/gameStage/draw",
-	// finishDrawing: "/games/draw",
-	guessingStage: "/games/guess",
+	finishGuess: "/gameStage/guess",
 
 	/* check health - server */
 	health: "/health",
