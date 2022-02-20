@@ -36,10 +36,12 @@ const GuessingView = (props) => {
 	const { word, wordPoints, canvasPaths } = useSelector((state) => state.gameStage);
 
 	useEffect(() => {
-		
+		if (!canvas) {
+			navigate("/", { state: { subtitle: "Welcome View" } });
+		}
 		let paths = JSON.parse(canvasPaths);
 		canvas.current.loadPaths(paths);
-	}, [canvasPaths, word]);
+	}, [canvasPaths, navigate, word]);
 
 	const onGuess = async () => {
 		if (word === guessRef.current.value) {

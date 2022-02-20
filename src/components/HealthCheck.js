@@ -22,6 +22,7 @@ const HealthCheck = (props) => {
 				});
 
 				if (response.status === 406 || response.status === 500) {
+					alert("The other player logged out");
 					await dispatch(usersActions.logout(gameID, userID));
 					navigate("/", { state: { subtitle: "Welcome view" } });
 
@@ -29,10 +30,12 @@ const HealthCheck = (props) => {
 				}
 			} catch (err) {
 				// TODO: Error Handler
+				alert("something went wrong");
 				console.log(err);
 				let message = "Error in serverService-> HealthCheck";
 				console.log(message);
 				navigate("/", { state: { subtitle: "Welcome view" } });
+				setChangeState(true);
 				return;
 			}
 		};
