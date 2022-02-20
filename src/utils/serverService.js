@@ -137,25 +137,8 @@ export const notifyFinishGuess = async (gameID) => {
 
 /* 'Health Check' - Game Stage Management  Server Functions  */
 
-export const wordChoosingState = async (userID) => {
-	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing;
 
-	try {
-		return await fetch(requestUrl, {
-			method: "GET",
-			credentials: "include",
-			headers: { userID: userID },
-		});
-	} catch (err) {
-		// TODO: Error Handler
-		console.log(err);
-		let message = "Error in serverService-> wordChoosingState";
-		console.log(message);
-		throw new Error(message);
-	}
-};
-
-export const onWaitingStageChange = async (gameID, userID) => {
+export const onWaitingCheckChange = async (gameID, userID) => {
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing;
 
 	try {
@@ -172,7 +155,30 @@ export const onWaitingStageChange = async (gameID, userID) => {
 	} catch (err) {
 		// TODO: Error Handler
 		console.log(err);
-		let message = "Error in serverService-> onWordChoosingState";
+		let message = "Error in serverService-> onWaitingCheckChange";
+		console.log(message);
+		throw new Error(message);
+	}
+};
+
+export const onGuessingCheckChange = async (gameID, userID) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.guessing;
+
+	try {
+		return await fetch(requestUrl, {
+			method: "POST",
+			headers: { "Content-Type": "application/json", userID: userID },
+			credentials: "include",
+			body: JSON.stringify({
+				changeState: true,
+				gameID: gameID,
+				userID: userID,
+			}),
+		});
+	} catch (err) {
+		// TODO: Error Handler
+		console.log(err);
+		let message = "Error in serverService-> onGuessingCheckChange";
 		console.log(message);
 		throw new Error(message);
 	}

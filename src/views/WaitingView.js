@@ -4,37 +4,44 @@ import { useNavigate } from "react-router-dom";
 
 import * as gameStageActions from "../store/actions/gameStage";
 
-import WordChoosingHealth from "../utils/checkHealth/wordChoosingHealth";
-import { onWaitingStageChange } from "../utils/serverService";
+import StageCheck from "../utils/checkHealth/stageCheck";
 
-import { ROLES, STAGES } from "../utils/constants";
+import { ROLES, STAGES, END_POINTS } from "../utils/constants";
 
 import "./WaitingView.css";
 
 const WaitingView = (props) => {
 	const intervalID = useRef();
+	const canvasPaths = useRef();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { userID, playerRole } = useSelector((state) => state.users);
+	const [gameID, userID, playerRole] = useSelector((state) => {
+		const { userID, playerRole } = state.users;
+		const { gameID } = state.game;
+
+		return [gameID, userID, playerRole];
+	});
 
 	let toStage;
+	let checkEndPoint;
 
 	if (playerRole === ROLES.DRAW) {
 		toStage = STAGES.WORD_CHOOSING;
+		checkEndPoint = END_POINTS.wordChoosing;
 	} else if (playerRole === ROLES.GUESS) {
 		toStage = STAGES.GUESSING;
+		checkEndPoint = END_POINTS.guessing;
 	}
 
 	const changeStateHandler = useCallback(async () => {
 		clearInterval(intervalID.current);
 
 		if (toStage === STAGES.WORD_CHOOSING) {
-			await dispatch(gameStageActions.waitingStageChange(userID));
+			await dispatch(gameStageActions.waitingCheckChange(userID));
 
 			navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
-			//  TODO: Need This?
 		} else if (toStage === STAGES.GUESSING) {
-			await onWaitingStageChange(userID);
+			await dispatch(gameStageActions.guessingCheckChange(userID, canvasPaths.current));
 
 			navigate("/guessing", { state: { subtitle: "Guessing Draw" } });
 		}
@@ -43,7 +50,15 @@ const WaitingView = (props) => {
 	return (
 		<div className="waiting-view">
 			<h2>Waiting View</h2>
-			<WordChoosingHealth userID={userID} refreshInterval={2000} intervalRef={intervalID} onChangeState={changeStateHandler} />
+			<StageCheck
+				gameID={gameID}
+				userID={userID}
+				endPoint={checkEndPoint}
+				refreshInterval={2000}
+				intervalRef={intervalID}
+				canvasRef={canvasPaths}
+				onChangeState={changeStateHandler}
+			/>
 		</div>
 	);
 };

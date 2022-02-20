@@ -7,8 +7,6 @@ import SubmitButton from "../components/SubmitButton";
 
 import * as gameActions from "../store/actions/game";
 
-import { getCanvasPaths } from "../utils/serverService";
-
 import "./GuessingView.css";
 import "./DrawingView.css";
 import "./WelcomeView.css";
@@ -33,27 +31,18 @@ const GuessingView = (props) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const [word, setWord] = useState("");
 	const [showWrong, setShowWrong] = useState(false);
 
-	const { gameID } = useSelector((state) => state.game);
+	const { word, wordPoints, canvasPaths } = useSelector((state) => state.gameStage);
 
 	useEffect(() => {
-		const getCanvas = async (gameID) => {
-			let result = await getCanvasPaths(gameID);
-
-			const data = await result.json();
-			let paths = JSON.parse(data.result.canvasPaths);
-			let guessingWord = data.result.currentWord;
-
-			setWord(guessingWord);
-			canvas.current.loadPaths(paths);
-		};
-		getCanvas(gameID);
-	}, [gameID, word]);
+		let paths = JSON.parse(canvasPaths);
+		canvas.current.loadPaths(paths);
+	}, [canvasPaths, word]);
 
 	const onGuess = async () => {
 		if (word === guessRef.current.value) {
+			console.log(wordPoints);
 			await dispatch(gameActions.finishGuess());
 			navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
 		} else {

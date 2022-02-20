@@ -29,8 +29,8 @@ const WelcomeView = (props) => {
 				state = { subtitle: "Waiting Room" };
 			} else if (playerRole === ROLES.GUESS) {
 				dispatch(gameActions.startGame(startTime));
-				to = "/guessing";
-				state = { subtitle: "Guessing Draw" };
+				to = "/waiting";
+				state = { subtitle: "Waiting Room" };
 			} else {
 				to = "/";
 				state = { subtitle: "Welcome" };

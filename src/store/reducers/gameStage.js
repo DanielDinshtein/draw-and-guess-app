@@ -1,4 +1,4 @@
-import { SET_CURRENT_STAGE, SET_CHOSEN_WORD } from "../actions/gameStage";
+import { SET_GAME_STAGE, SET_CURRENT_STAGE, SET_CHOSEN_WORD } from "../actions/gameStage";
 import { FINISH_DRAW, FINISH_GUESS } from "../actions/game";
 
 const initialState = {
@@ -10,6 +10,13 @@ const initialState = {
 // eslint-disable-next-line import/no-anonymous-default-export
 export default (state = initialState, action) => {
 	switch (action.type) {
+		case SET_GAME_STAGE:
+			return {
+				...state,
+				word: action.word,
+				wordPoints: action.wordPoints,
+				canvasPaths: action.canvasPaths,
+			};
 		case SET_CURRENT_STAGE:
 			return {
 				...state,
