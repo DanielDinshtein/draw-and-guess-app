@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import thunk from "redux-thunk";
 import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware } from "redux";
@@ -14,9 +14,11 @@ import DrawingView from "./views/DrawingView";
 import GuessingView from "./views/GuessingView";
 import WaitingView from "./views/WaitingView";
 
-// import CheckHealth from "./components/CheckHealth";
+import HealthCheck from "./components/HealthCheck";
 import Header from "./components/Header";
 import "./App.css";
+
+import { END_POINTS } from "./utils/constants";
 
 const rootReducer = combineReducers({
 	users: usersReducer,
@@ -43,14 +45,31 @@ const appInit = () => {
 appInit();
 
 function App() {
+	const intervalID = useRef();
 	const location = useLocation();
 	const isUserAuthenticated = store.getState().users.username;
+	const { userID } = store.getState().users;
+	const { gameID } = store.getState().game;
 	let headerSubtitle = location.state?.subtitle ? location.state.subtitle : "Welcome";
+
+	const checkEndPoint = END_POINTS.health;
+
+	const changeStateHandler = () => {};
 
 	return (
 		<div className="App">
 			<Provider store={store}>
 				<Header subtitle={headerSubtitle} />
+				{isUserAuthenticated && (
+					<HealthCheck
+						gameID={gameID}
+						userID={userID}
+						endPoint={checkEndPoint}
+						refreshInterval={5000}
+						intervalRef={intervalID}
+						onChangeState={changeStateHandler}
+					/>
+				)}
 				<Routes>
 					<Route path="/" element={<WelcomeView />} />
 					{isUserAuthenticated && (

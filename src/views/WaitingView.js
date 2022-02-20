@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 import * as gameStageActions from "../store/actions/gameStage";
 
-import StageCheck from "../utils/checkHealth/stageCheck";
+import StageCheck from "../components/StageCheck";
 
 import { ROLES, STAGES, END_POINTS } from "../utils/constants";
 

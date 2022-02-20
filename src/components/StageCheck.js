@@ -39,8 +39,6 @@ const StageCheck = (props) => {
 		}, refreshInterval);
 
 		if (changeState) {
-			console.log(intervalRef.current);
-
 			onChangeState();
 		}
 		return () => clearInterval(intervalRef.current);

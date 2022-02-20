@@ -1,12 +1,8 @@
 export const END_POINTS = {
-	/* player */
+	/* users */
 	login: "/users/login",
-	
 
 	/* game */
-	initGame: "/games",
-	chosenWord: "/games/chosenWord",
-
 	finishDrawing: "/gameStage/draw",
 	finishGuess: "/gameStage/guess",
 
@@ -34,6 +30,3 @@ export const STAGES = {
 	GUESSING: "guessing",
 };
 
-export const GAME_STAGE = {
-	stage: STAGES.WAITING,
-};

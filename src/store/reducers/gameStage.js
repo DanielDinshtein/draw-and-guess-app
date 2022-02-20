@@ -1,4 +1,4 @@
-import { SET_GAME_STAGE, SET_WORD_DETAILS, SET_CURRENT_STAGE, SET_CHOSEN_WORD } from "../actions/gameStage";
+import { SET_GAME_STAGE, SET_WORD_DETAILS } from "../actions/gameStage";
 import { FINISH_DRAW } from "../actions/game";
 
 const initialState = {
@@ -27,17 +27,6 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				canvasPaths: action.canvasPaths,
-			};
-		case SET_CURRENT_STAGE:
-			return {
-				...state,
-				currentGameStage: action.gameStage,
-			};
-		case SET_CHOSEN_WORD:
-			return {
-				...state,
-				word: action.word,
-				wordPoints: action.wordPoints,
 			};
 		default:
 			return state;
