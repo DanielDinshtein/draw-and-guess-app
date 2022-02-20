@@ -11,7 +11,7 @@ export const userLogin = async (username) => {
 		return await fetch(requestUrl, {
 			method: "POST",
 			headers: headers,
-			credentials: "same-origin",
+			credentials: "include",
 			body: JSON.stringify({
 				username: username,
 			}),
@@ -34,7 +34,7 @@ export const initGameSession = async (gameID, username) => {
 		return await fetch(requestUrl, {
 			method: "POST",
 			headers: headers,
-			credentials: "same-origin",
+			credentials: "include",
 			body: JSON.stringify({
 				username: username,
 				gameID: gameID,
@@ -74,16 +74,18 @@ export const sendChosenWordDetails = async (gameID, word, wordPoints) => {
 	}
 };
 
-export const sendDrawDetails = async (gameID, wordPoints, canvasPaths) => {
+export const sendDrawDetails = async (gameID, userID, word, wordPoints, canvasPaths) => {
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.finishDrawing;
 
 	try {
 		return await fetch(requestUrl, {
 			method: "POST",
 			headers: headers,
-			credentials: "same-origin",
+			credentials: "include",
 			body: JSON.stringify({
 				gameID: gameID,
+				userID: userID,
+				word: word,
 				wordPoints: wordPoints,
 				canvasPaths: canvasPaths,
 			}),
@@ -136,7 +138,6 @@ export const notifyFinishGuess = async (gameID) => {
 };
 
 /* 'Health Check' - Game Stage Management  Server Functions  */
-
 
 export const onWaitingCheckChange = async (gameID, userID) => {
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing;

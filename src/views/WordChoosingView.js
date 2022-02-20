@@ -13,10 +13,11 @@ const words = getWords();
 
 const WordChoosingView = (props) => {
 	const startDisabled = useRef(true);
-	const [word, setWord] = useState("");
-	const [wordPoints, setWordPoints] = useState(0);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const [word, setWord] = useState("");
+	const [wordPoints, setWordPoints] = useState(0);
 
 	const onSelectWordHandler = useCallback((chosenWord, wordPoints) => {
 		setWord(chosenWord);
@@ -24,14 +25,9 @@ const WordChoosingView = (props) => {
 		startDisabled.current = false;
 	}, []);
 
-	const onStartDrawingHandler = async () => {
-		try {
-			await dispatch(gameStageActions.setChosenWord(word, wordPoints));
-			navigate("/drawing", { state: { subtitle: "Drawing Room" } });
-		} catch (err) {
-			// TODO: Error Handler
-			console.log(err);
-		}
+	const onStartDrawingHandler = () => {
+		dispatch(gameStageActions.setWordDetails(word, wordPoints));
+		navigate("/drawing", { state: { subtitle: "Drawing Room" } });
 	};
 
 	return (

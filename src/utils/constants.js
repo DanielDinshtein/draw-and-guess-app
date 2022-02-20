@@ -1,13 +1,13 @@
 export const END_POINTS = {
 	/* player */
-	// login: "/players/login",
 	login: "/users/login",
 	
 
 	/* game */
 	initGame: "/games",
 	chosenWord: "/games/chosenWord",
-	finishDrawing: "/games/draw",
+	finishDrawing: "/gameStage/draw",
+	// finishDrawing: "/games/draw",
 	guessingStage: "/games/guess",
 
 	/* check health - server */

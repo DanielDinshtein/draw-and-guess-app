@@ -16,14 +16,13 @@ const StageCheck = (props) => {
 					headers: { gameID: gameID, userID: userID },
 				});
 
-				const data = await response.json();
+				// const data = await response.json();
 				//  Waiting Check
 				if (response.status === 200) {
 					setChangeState(true);
 				}
 				//  Guessing Check
 				else if (response.status === 204) {
-					canvasRef.current = data.canvasPaths;
 					setChangeState(true);
 				}
 			} catch (err) {

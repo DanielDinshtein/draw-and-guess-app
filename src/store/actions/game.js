@@ -1,4 +1,4 @@
-import {  sendDrawDetails, notifyFinishGuess } from "../../utils/serverService";
+import { sendDrawDetails, notifyFinishGuess } from "../../utils/serverService";
 
 import { ROLES, STAGES } from "../../utils/constants";
 
@@ -10,16 +10,17 @@ export const startGame = (startTime) => {
 	return { type: START_GAME, startTime: startTime };
 };
 
-export const finishDraw = (wordPoints, canvasPaths) => {
+export const finishDraw = (word, wordPoints, canvasPaths) => {
 	return async (dispatch, getState) => {
 		try {
 			const { gameID } = getState().game;
-			const response = await sendDrawDetails(gameID, wordPoints, canvasPaths);
+			const { userID } = getState().users;
+			const response = await sendDrawDetails(gameID, userID, word, wordPoints, canvasPaths);
 
 			const data = await response.json();
 
 			if (response.status === 200) {
-				dispatch({ type: FINISH_DRAW, playerRole: ROLES.GUESS, gameStage: STAGES.WAITING });
+				dispatch({ type: FINISH_DRAW, playerRole: ROLES.GUESS, canvasPaths: canvasPaths });
 			} else if (response.status === 400) {
 				let message = data.message;
 				throw new Error(message);

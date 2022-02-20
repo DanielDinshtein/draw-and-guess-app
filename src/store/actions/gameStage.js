@@ -6,6 +6,7 @@ import { onWaitingCheckChange, onGuessingCheckChange, updateServerOnStageChange,
 
 export const WAITING_STAGE_CHANGE = "WAITING_STAGE_CHANGE"; // ?
 export const SET_GAME_STAGE = "SET_GAME_STAGE";
+export const SET_WORD_DETAILS = "SET_WORD_DETAILS";
 
 export const waitingCheckChange = (userID) => {
 	return async (dispatch, getState) => {
@@ -40,7 +41,9 @@ export const guessingCheckChange = (userID, canvasPaths) => {
 
 			const data = await response.json();
 			if (response.status === 200) {
-				const { word, wordPoints } = data;
+				const { word, wordPoints, canvasPaths } = data;
+
+				console.log(data);
 
 				dispatch({ type: SET_GAME_STAGE, word: word, wordPoints: wordPoints, canvasPaths: canvasPaths });
 			} else if (response.status === 400) {
@@ -55,6 +58,10 @@ export const guessingCheckChange = (userID, canvasPaths) => {
 			throw new Error(message);
 		}
 	};
+};
+
+export const setWordDetails = (word, wordPoints) => {
+	return { type: SET_WORD_DETAILS, word: word, wordPoints: wordPoints };
 };
 
 export const SET_CURRENT_STAGE = "SET_CURRENT_STAGE";

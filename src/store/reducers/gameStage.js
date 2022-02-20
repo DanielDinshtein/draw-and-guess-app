@@ -1,4 +1,4 @@
-import { SET_GAME_STAGE, SET_CURRENT_STAGE, SET_CHOSEN_WORD } from "../actions/gameStage";
+import { SET_GAME_STAGE, SET_WORD_DETAILS, SET_CURRENT_STAGE, SET_CHOSEN_WORD } from "../actions/gameStage";
 import { FINISH_DRAW, FINISH_GUESS } from "../actions/game";
 
 const initialState = {
@@ -17,6 +17,17 @@ export default (state = initialState, action) => {
 				wordPoints: action.wordPoints,
 				canvasPaths: action.canvasPaths,
 			};
+		case SET_WORD_DETAILS:
+			return {
+				...state,
+				word: action.word,
+				wordPoints: action.wordPoints,
+			};
+		case FINISH_DRAW:
+			return {
+				...state,
+				canvasPaths: action.canvasPaths,
+			};
 		case SET_CURRENT_STAGE:
 			return {
 				...state,
@@ -27,11 +38,6 @@ export default (state = initialState, action) => {
 				...state,
 				word: action.word,
 				wordPoints: action.wordPoints,
-			};
-		case FINISH_DRAW:
-			return {
-				...state,
-				customElements: action.gameStage,
 			};
 		case FINISH_GUESS:
 			return {
