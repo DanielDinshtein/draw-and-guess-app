@@ -1,9 +1,11 @@
 import React, { useRef, useCallback } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import * as gameStageActions from "../store/actions/gameStage";
+
 import WordChoosingHealth from "../utils/checkHealth/wordChoosingHealth";
-import { onWordChoosingState } from "../utils/serverService";
+import { onWaitingStageChange } from "../utils/serverService";
 
 import { ROLES, STAGES } from "../utils/constants";
 
@@ -11,6 +13,7 @@ import "./WaitingView.css";
 
 const WaitingView = (props) => {
 	const intervalID = useRef();
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { userID, playerRole } = useSelector((state) => state.users);
 
@@ -26,16 +29,16 @@ const WaitingView = (props) => {
 		clearInterval(intervalID.current);
 
 		if (toStage === STAGES.WORD_CHOOSING) {
-			await onWordChoosingState(userID);
-			// dispatch(gameStageActions.onServerStateChange(username, service.name));
+			await dispatch(gameStageActions.waitingStageChange(userID));
+
 			navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
-		//  TODO: Need This?
+			//  TODO: Need This?
 		} else if (toStage === STAGES.GUESSING) {
-			await onWordChoosingState(userID);
+			await onWaitingStageChange(userID);
 
 			navigate("/guessing", { state: { subtitle: "Guessing Draw" } });
 		}
-	}, [navigate, toStage, userID]);
+	}, [dispatch, navigate, toStage, userID]);
 
 	return (
 		<div className="waiting-view">

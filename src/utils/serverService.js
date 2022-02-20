@@ -58,7 +58,7 @@ export const sendChosenWordDetails = async (gameID, word, wordPoints) => {
 		return await fetch(requestUrl, {
 			method: "POST",
 			headers: headers,
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			body: JSON.stringify({
 				gameID: gameID,
 				word: word,
@@ -81,7 +81,7 @@ export const sendDrawDetails = async (gameID, wordPoints, canvasPaths) => {
 		return await fetch(requestUrl, {
 			method: "POST",
 			headers: headers,
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			body: JSON.stringify({
 				gameID: gameID,
 				wordPoints: wordPoints,
@@ -103,7 +103,7 @@ export const getCanvasPaths = async (gameID) => {
 	try {
 		return await fetch(requestUrl, {
 			headers: headers,
-			credentials: 'same-origin',
+			credentials: "same-origin",
 		});
 	} catch (err) {
 		// TODO: Error Handler
@@ -121,7 +121,7 @@ export const notifyFinishGuess = async (gameID) => {
 		return await fetch(requestUrl, {
 			method: "POST",
 			headers: headers,
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			body: JSON.stringify({
 				gameID: gameID,
 			}),
@@ -137,7 +137,6 @@ export const notifyFinishGuess = async (gameID) => {
 
 /* 'Health Check' - Game Stage Management  Server Functions  */
 
-
 export const wordChoosingState = async (userID) => {
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing;
 
@@ -145,7 +144,7 @@ export const wordChoosingState = async (userID) => {
 		return await fetch(requestUrl, {
 			method: "GET",
 			credentials: "include",
-			headers: {userID: userID},
+			headers: { userID: userID },
 		});
 	} catch (err) {
 		// TODO: Error Handler
@@ -154,10 +153,9 @@ export const wordChoosingState = async (userID) => {
 		console.log(message);
 		throw new Error(message);
 	}
-}; 
+};
 
-
-export const onWordChoosingState = async (userID) => {
+export const onWaitingStageChange = async (gameID, userID) => {
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.wordChoosing;
 
 	try {
@@ -167,6 +165,8 @@ export const onWordChoosingState = async (userID) => {
 			credentials: "include",
 			body: JSON.stringify({
 				changeState: true,
+				gameID: gameID,
+				userID: userID,
 			}),
 		});
 	} catch (err) {
@@ -178,7 +178,6 @@ export const onWordChoosingState = async (userID) => {
 	}
 };
 
-
 export const updateServerOnStageChange = async (stage) => {
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.health + "/" + stage;
 
@@ -186,7 +185,7 @@ export const updateServerOnStageChange = async (stage) => {
 		return await fetch(requestUrl, {
 			method: "POST",
 			headers: headers,
-			credentials: 'same-origin',
+			credentials: "same-origin",
 			body: JSON.stringify({
 				changeState: true,
 			}),
