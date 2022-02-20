@@ -1,6 +1,7 @@
 export const END_POINTS = {
 	/* users */
 	login: "/users/login",
+	logout: "/users/logout",
 
 	/* game */
 	finishDrawing: "/gameStage/draw",

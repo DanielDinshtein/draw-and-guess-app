@@ -1,4 +1,4 @@
-import { LOGIN } from "../actions/users";
+import { LOGIN, LOGOUT } from "../actions/users";
 
 import { FINISH_DRAW, FINISH_GUESS } from "../actions/game";
 
@@ -22,6 +22,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				playerRole: action.playerRole,
+			};
+		case LOGOUT:
+			return {
+				userID: "",
+				username: "",
+				playerRole: "",
 			};
 		default:
 			return state;

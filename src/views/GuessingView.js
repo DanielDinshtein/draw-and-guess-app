@@ -36,6 +36,7 @@ const GuessingView = (props) => {
 	const { word, wordPoints, canvasPaths } = useSelector((state) => state.gameStage);
 
 	useEffect(() => {
+		
 		let paths = JSON.parse(canvasPaths);
 		canvas.current.loadPaths(paths);
 	}, [canvasPaths, word]);

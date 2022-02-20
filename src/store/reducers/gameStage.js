@@ -1,5 +1,6 @@
 import { SET_GAME_STAGE, SET_WORD_DETAILS } from "../actions/gameStage";
 import { FINISH_DRAW } from "../actions/game";
+import { LOGOUT } from "../actions/users";
 
 const initialState = {
 	word: "",
@@ -27,6 +28,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				canvasPaths: action.canvasPaths,
+			};
+		case LOGOUT:
+			return {
+				word: "",
+				wordPoints: "",
+				canvasPaths: "",
 			};
 		default:
 			return state;

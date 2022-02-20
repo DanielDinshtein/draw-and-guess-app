@@ -18,6 +18,7 @@ import HealthCheck from "./components/HealthCheck";
 import Header from "./components/Header";
 import "./App.css";
 
+import { userLogout } from "./utils/serverService";
 import { END_POINTS } from "./utils/constants";
 
 const rootReducer = combineReducers({
@@ -29,20 +30,25 @@ const rootReducer = combineReducers({
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
 //  TODO: Thing on Better Place
-const appInit = () => {
+const appInit = async () => {
 	//  Clear All Local Data
-	sessionStorage.clear();
 
 	//  TODO: Catch the Refresh & Notify Server
-	// if (window.performance) {
-	//     if (performance.navigation.type === 1) {
-	//         alert("This page is reloaded");
-	//     } else {
-	//         alert("This page is not reloaded");
-	//     }
-	// }
+	if (window.performance) {
+		if (performance.navigation.type === 1) {
+			// alert("This page is reloaded");
+			const user_ID = localStorage.getItem("userID");
+			const game_ID = localStorage.getItem("gameID");
+			if (user_ID || game_ID) {
+				await userLogout(game_ID, user_ID);
+			}
+			sessionStorage.clear();
+		} else {
+			// alert("This page is not reloaded");
+		}
+	}
 };
-appInit();
+appInit().then((res) => {});
 
 function App() {
 	const intervalID = useRef();
@@ -54,7 +60,10 @@ function App() {
 
 	const checkEndPoint = END_POINTS.health;
 
-	const changeStateHandler = () => {};
+	const changeStateHandler = async () => {
+		localStorage.removeItem("gameID");
+		localStorage.removeItem("userID");
+	};
 
 	return (
 		<div className="App">

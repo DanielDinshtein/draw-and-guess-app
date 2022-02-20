@@ -44,6 +44,8 @@ const WaitingView = (props) => {
 			await dispatch(gameStageActions.guessingCheckChange(userID, canvasPaths.current));
 
 			navigate("/guessing", { state: { subtitle: "Guessing Draw" } });
+		} else {
+			navigate("/", { state: { subtitle: "Welcome view" } });
 		}
 	}, [dispatch, navigate, toStage, userID]);
 

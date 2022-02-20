@@ -25,11 +25,31 @@ export const userLogin = async (username) => {
 	}
 };
 
+export const userLogout = async (gameID, userID) => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.logout;
+
+	try {
+		return await fetch(requestUrl, {
+			method: "POST",
+			headers: headers,
+			credentials: "include",
+			body: JSON.stringify({
+				gameID: gameID,
+				userID: userID,
+			}),
+		});
+	} catch (err) {
+		// TODO: Error Handler
+		console.log(err);
+		let message = "Error in serverService->userLogout";
+		console.log(message);
+		throw new Error(message);
+	}
+};
+
 /* Game -  Server Functions  */
 
-
 /* Game Stage -  Server Functions  */
-
 
 export const sendDrawDetails = async (gameID, userID, word, wordPoints, canvasPaths) => {
 	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.finishDrawing;
@@ -126,4 +146,3 @@ export const onGuessingCheckChange = async (gameID, userID) => {
 		throw new Error(message);
 	}
 };
-

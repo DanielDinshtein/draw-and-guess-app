@@ -1,4 +1,4 @@
-import { LOGIN } from "../actions/users";
+import { LOGIN, LOGOUT } from "../actions/users";
 import { START_GAME } from "../actions/game";
 import { FINISH_GUESS } from "../actions/game";
 
@@ -25,6 +25,12 @@ export default (state = initialState, action) => {
 			return {
 				...state,
 				totalPoints: action.totalPoints,
+			};
+		case LOGOUT:
+			return {
+				gameID: "",
+				totalPoints: 0,
+				startTime: "",
 			};
 		default:
 			return state;
