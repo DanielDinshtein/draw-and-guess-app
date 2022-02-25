@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+
+import * as gameActions from "../store/actions/game";
 
 const StageCheck = (props) => {
+	const dispatch = useDispatch();
 	const [changeState, setChangeState] = useState(false);
+	const { totalPoints } = useSelector((state) => state.game);
 	const { gameID, userID, endPoint, refreshInterval, intervalRef, canvasRef, onChangeState } = props;
 
 	useEffect(() => {
@@ -24,6 +29,12 @@ const StageCheck = (props) => {
 				//  Guessing Check
 				else if (response.status === 204) {
 					setChangeState(true);
+				} else if (response.status === 202) {
+					const data = await response.json();
+
+					if (data.points !== totalPoints) {
+						dispatch(gameActions.setTotalPoints(data.points));
+					}
 				}
 			} catch (err) {
 				// TODO: Error Handler
@@ -42,7 +53,7 @@ const StageCheck = (props) => {
 			onChangeState();
 		}
 		return () => clearInterval(intervalRef.current);
-	}, [canvasRef, changeState, endPoint, gameID, intervalRef, onChangeState, refreshInterval, userID]);
+	}, [canvasRef, changeState, dispatch, endPoint, gameID, intervalRef, onChangeState, refreshInterval, totalPoints, userID]);
 
 	return <div></div>;
 };

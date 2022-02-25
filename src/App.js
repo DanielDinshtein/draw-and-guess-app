@@ -29,9 +29,8 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
-//  TODO: Thing on Better Place
+
 const appInit = async () => {
-	//  Clear All Local Data
 
 	//  TODO: Catch the Refresh & Notify Server
 	if (window.performance) {

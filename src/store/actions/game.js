@@ -5,6 +5,8 @@ import { ROLES } from "../../utils/constants";
 export const START_GAME = "START_GAME";
 export const FINISH_DRAW = "FINISH_DRAW";
 export const FINISH_GUESS = "FINISH_GUESS";
+export const SET_TOTAL_POINTS = "SET_TOTAL_POINTS";
+
 
 export const startGame = (startTime) => {
 	return { type: START_GAME, startTime: startTime };
@@ -66,4 +68,8 @@ export const finishGuess = (wordPoints) => {
 			throw new Error(message);
 		}
 	};
+};
+
+export const setTotalPoints = (totalPoints) => {
+	return { type: SET_TOTAL_POINTS, totalPoints: totalPoints };
 };
