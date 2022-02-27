@@ -18,7 +18,7 @@ import HealthCheck from "./components/HealthCheck";
 import Header from "./components/Header";
 import "./App.css";
 
-import { userLogout } from "./utils/serverService";
+import { userLogout, getBestGame } from "./utils/serverService";
 import { END_POINTS } from "./utils/constants";
 
 const rootReducer = combineReducers({
@@ -29,10 +29,7 @@ const rootReducer = combineReducers({
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
 
-
 const appInit = async () => {
-
-	//  TODO: Catch the Refresh & Notify Server
 	if (window.performance) {
 		if (performance.navigation.type === 1) {
 			// alert("This page is reloaded");
@@ -45,6 +42,16 @@ const appInit = async () => {
 		} else {
 			// alert("This page is not reloaded");
 		}
+		const response = await getBestGame();
+		const data = await response.json();
+
+		const bestPoints = data.bestGame.totalPoints;
+		const gameTime = data.bestGame.gameTime;
+		const users = data.bestGame.users;
+
+		localStorage.setItem("bestPoints", JSON.stringify(bestPoints));
+		localStorage.setItem("gameTime", JSON.stringify(gameTime));
+		localStorage.setItem("users", JSON.stringify(users));
 	}
 };
 appInit().then((res) => {});

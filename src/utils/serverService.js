@@ -47,7 +47,24 @@ export const userLogout = async (gameID, userID) => {
 	}
 };
 
-/* Game -  Server Functions  */
+/* Game Session -  Server Functions  */
+
+export const getBestGame = async () => {
+	const requestUrl = process.env.REACT_APP_SERVER_URL + END_POINTS.gameSession;
+
+	try {
+		return await fetch(requestUrl, {
+			headers: headers,
+			credentials: "include",
+		});
+	} catch (err) {
+		// TODO: Error Handler
+		console.log(err);
+		let message = "Error in serverService->getBestGame";
+		console.log(message);
+		throw new Error(message);
+	}
+};
 
 /* Game Stage -  Server Functions  */
 

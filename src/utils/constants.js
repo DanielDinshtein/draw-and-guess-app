@@ -3,6 +3,9 @@ export const END_POINTS = {
 	login: "/users/login",
 	logout: "/users/logout",
 
+	/* game session */
+	gameSession: "/gameSession",
+
 	/* game */
 	finishDrawing: "/gameStage/draw",
 	finishGuess: "/gameStage/guess",

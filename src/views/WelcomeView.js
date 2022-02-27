@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,16 @@ const WelcomeView = (props) => {
 	const usernameRef = useRef();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
+
+	const [bestPoints, setBestPoints] = useState(-1);
+	const [gameTime, setGameTime] = useState(-1);
+	const [users, setUsers] = useState();
+
+	useEffect(() => {
+		setBestPoints(localStorage.getItem("bestPoints"));
+		setGameTime(localStorage.getItem("gameTime"));
+		setUsers(JSON.parse(localStorage.getItem("users")));
+	}, []);
 
 	const startGameHandler = async (event) => {
 		event.preventDefault();
@@ -54,6 +64,24 @@ const WelcomeView = (props) => {
 					Start Game
 				</SubmitButton>
 			</form>
+			<div id="best-game-grid">
+				<div className="form-grid-cell" id="best-game-cell">
+					Player 1
+				</div>
+				<div className="form-grid-cell" id="best-game-cell">
+					Player 2
+				</div>
+				<div className="form-grid-cell" id="best-game-cell">
+					BestPoints
+				</div>
+				<div className="form-grid-cell" id="best-game-cell">
+					GameTime
+				</div>
+				<div className="form-grid-cell">{users && users[0]}</div>
+				<div className="form-grid-cell">{users && users[1]}</div>
+				<div className="form-grid-cell">{bestPoints}</div>
+				<div className="form-grid-cell">{gameTime} sec</div>
+			</div>
 		</div>
 	);
 };

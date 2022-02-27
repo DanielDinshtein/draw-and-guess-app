@@ -22,3 +22,21 @@
 	/* Border */
 	border-radius: 4px;
 }
+
+/* Best Game Grid */
+
+#best-game-grid {
+	padding: 10px;
+	width: 95%;
+	display: grid;
+	align-items: center;
+	justify-content: center;
+	grid-template-columns: repeat(4, 2fr);
+	column-gap: 14px;
+	row-gap: 27px;
+	border: 1px solid #000000;
+}
+
+#best-game-cell {
+	border-bottom: 1px solid #000000;
+}
