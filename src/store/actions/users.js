@@ -48,7 +48,7 @@ export const logout = (gameID, userID) => {
 
 			const data = await response.json();
 
-			if (response.status === 200) {
+			if (response.status === 200 || response.status === 202) {
 				localStorage.removeItem("userID", userID);
 				localStorage.removeItem("gameID", gameID);
 				dispatch({ type: LOGOUT });

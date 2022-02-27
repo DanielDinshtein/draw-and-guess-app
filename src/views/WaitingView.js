@@ -24,13 +24,16 @@ const WaitingView = (props) => {
 
 	let toStage;
 	let checkEndPoint;
+	let message = "";
 
 	if (playerRole === ROLES.DRAW) {
 		toStage = STAGES.WORD_CHOOSING;
 		checkEndPoint = END_POINTS.wordChoosing;
+		message = "Wait for another player to join";
 	} else if (playerRole === ROLES.GUESS) {
 		toStage = STAGES.GUESSING;
 		checkEndPoint = END_POINTS.guessing;
+		message = "It's another player's turn. Wait for his drawing";
 	}
 
 	const changeStateHandler = useCallback(async () => {
@@ -51,7 +54,7 @@ const WaitingView = (props) => {
 
 	return (
 		<div className="waiting-view">
-			<h2>Waiting View</h2>
+			<h3>{message}</h3>
 			<StageCheck
 				gameID={gameID}
 				userID={userID}

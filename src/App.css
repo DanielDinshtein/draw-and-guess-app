@@ -32,6 +32,17 @@
 	padding-right: 10px;
 	padding-top: calc(10px + 5vmin);
 }
+
+.header-timer {
+	color: #c9d5e0;
+	font-size: 0.7em;
+	position: absolute;
+	left: 0;
+	top: 0;
+	padding-left: 10px;
+	padding-top: calc(10px + 5vmin);
+}
+
 #points {
 	padding-top: calc(10px + 15vmin);
 }
