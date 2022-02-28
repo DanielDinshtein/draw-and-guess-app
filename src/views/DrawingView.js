@@ -2,6 +2,8 @@ import React, { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import ReactLoading from "react-loading";
+
 import Canvas from "../components/Canvas";
 import CanvasOptions from "../components/CanvasOptions";
 import SubmitButton from "../components/SubmitButton";
@@ -27,6 +29,8 @@ const DrawingView = (props) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const [loading, setLoading] = useState(false);
+
 	const [strokeColorState, setStrokeColorState] = useState("#000000");
 	const [canvasColorState, setCanvasColorState] = useState("#FFFFFF");
 	const [strokeWidthState, setStrokeWidthState] = useState(4);
@@ -43,9 +47,11 @@ const DrawingView = (props) => {
 
 	const sendDrawHandler = async () => {
 		try {
+			setLoading(true);
 			const canvasPaths = await canvas.current.exportPaths();
 
 			await dispatch(gameActions.finishDraw(word, wordPoints, JSON.stringify(canvasPaths)));
+			setLoading(false);
 			navigate("/waiting", { state: { subtitle: "Waiting Room" } });
 		} catch (err) {
 			// TODO: Error Handler
@@ -77,6 +83,11 @@ const DrawingView = (props) => {
 					</div>
 				</Canvas>
 			</div>
+			{loading && (
+				<div id="loading">
+					<ReactLoading type={"spin"} color={"#5aa8f0"} height={"33%"} width={"33%"} />
+				</div>
+			)}
 		</div>
 	);
 };

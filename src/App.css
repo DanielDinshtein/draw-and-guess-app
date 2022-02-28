@@ -198,3 +198,14 @@ button:not(:disabled) {
 	margin: 5px;
 	font-size: 14px;
 }
+
+#loading {
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

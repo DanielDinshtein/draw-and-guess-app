@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import ReactLoading from "react-loading";
+
 import Canvas from "../components/Canvas";
 import SubmitButton from "../components/SubmitButton";
 
@@ -31,6 +33,7 @@ const GuessingView = (props) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
+	const [loading, setLoading] = useState(false);
 	const [showWrong, setShowWrong] = useState(false);
 
 	const { word, wordPoints, canvasPaths } = useSelector((state) => state.gameStage);
@@ -45,7 +48,10 @@ const GuessingView = (props) => {
 
 	const onGuess = async () => {
 		if (word === guessRef.current.value) {
+			setLoading(true);
+
 			await dispatch(gameActions.finishGuess(wordPoints));
+			setLoading(false);
 
 			navigate("/wordChoosing", { state: { subtitle: "Word Choosing" } });
 		} else {
@@ -81,6 +87,11 @@ const GuessingView = (props) => {
 					)}
 				</Canvas>
 			</div>
+			{loading && (
+				<div id="loading">
+					<ReactLoading type={"spin"} color={"#5aa8f0"} height={"33%"} width={"33%"} />
+				</div>
+			)}
 		</div>
 	);
 };

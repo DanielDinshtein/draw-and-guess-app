@@ -2,6 +2,8 @@ import React, { useRef, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import ReactLoading from "react-loading";
+
 import SubmitButton from "../components/SubmitButton";
 import * as usersActions from "../store/actions/users";
 import * as gameActions from "../store/actions/game";
@@ -14,9 +16,11 @@ const WelcomeView = (props) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
-	const [bestPoints, setBestPoints] = useState(-1);
-	const [gameTime, setGameTime] = useState(-1);
 	const [users, setUsers] = useState();
+	const [gameTime, setGameTime] = useState(-1);
+	const [bestPoints, setBestPoints] = useState(-1);
+
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		setBestPoints(localStorage.getItem("bestPoints"));
@@ -28,12 +32,14 @@ const WelcomeView = (props) => {
 		event.preventDefault();
 		const username = usernameRef.current.value;
 
+		setLoading(true);
+
 		try {
 			const [playerRole, startTime] = await dispatch(usersActions.login(username));
 
+			setLoading(false);
 			let to;
 			let state;
-
 			if (playerRole === ROLES.DRAW) {
 				to = "/waiting";
 				state = { subtitle: "Waiting Room" };
@@ -64,6 +70,7 @@ const WelcomeView = (props) => {
 					Start Game
 				</SubmitButton>
 			</form>
+			<h3>Best Game :</h3>
 			<div id="best-game-grid">
 				<div className="form-grid-cell" id="best-game-cell">
 					Player 1
@@ -82,6 +89,11 @@ const WelcomeView = (props) => {
 				<div className="form-grid-cell">{bestPoints}</div>
 				<div className="form-grid-cell">{gameTime} sec</div>
 			</div>
+			{loading && (
+				<div id="loading">
+					<ReactLoading type={"spin"} color={"#5aa8f0"} height={"33%"} width={"33%"} />
+				</div>
+			)}
 		</div>
 	);
 };
