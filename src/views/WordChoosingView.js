@@ -9,9 +9,8 @@ import * as gameStageActions from "../store/actions/gameStage";
 import { getWords } from "../utils/wordsVocabulary";
 import "./WordChoosingView.css";
 
-const words = getWords();
-
 const WordChoosingView = (props) => {
+	const words = getWords();
 	const startDisabled = useRef(true);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
