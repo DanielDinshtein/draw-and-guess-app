@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useRef } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -10,13 +10,17 @@ import { getWords } from "../utils/wordsVocabulary";
 import "./WordChoosingView.css";
 
 const WordChoosingView = (props) => {
-	const words = getWords();
 	const startDisabled = useRef(true);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const [word, setWord] = useState("");
+	const [words, setWords] = useState("");
 	const [wordPoints, setWordPoints] = useState(0);
+
+	useEffect(() => {
+		setWords(getWords());
+	}, []);
 
 	const onSelectWordHandler = useCallback((chosenWord, wordPoints) => {
 		setWord(chosenWord);
